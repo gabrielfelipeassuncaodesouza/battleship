@@ -7,7 +7,7 @@ This game was created to complement the final grade of subject Programming I at 
  ```bash
 git clone https://github.com/gabrielfelipeassuncaodesouza/battleship
 ```
-* Clone this repository and type `make` (you sould have make installed)
+* Enter on the directory cloned and type `make` (you sould have make installed)
 
 * After creates the binary executable type `make run` to execute the program on linux (On windows just type battleship.exe)
 
