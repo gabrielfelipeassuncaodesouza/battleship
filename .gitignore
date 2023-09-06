@@ -1,0 +1,7 @@
+*.o
+*.out
+*.exe
+
+main
+battleship.exe
+battleship
