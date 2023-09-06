@@ -39,10 +39,12 @@ void humanShoot(char board[][TAM]) {
 
   } while(!isShootValid(buf));
 
-  chute.x = buf[0];
+  chute.x = (int)(tolower(buf[0])) - 97;
+  printf("the x coordinate is %d\n", chute.x);
+
   int y;
   sscanf(&buf[1], "%d", &y);
   chute.y = y;
 
-  printf("You choose %c%d\n", chute.x, chute.y);
+  printf("You choose %d%d\n", chute.x, chute.y);
 }

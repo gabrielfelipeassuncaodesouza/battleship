@@ -4,7 +4,7 @@
 #include "board.h"
 
 typedef struct {
-  char x;
+  int x;
   int y;
 } chute_t;
 

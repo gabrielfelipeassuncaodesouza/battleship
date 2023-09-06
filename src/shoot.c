@@ -1,25 +1,22 @@
 #include "shoot.h"
 #include "human.h"
+
 #include <stdio.h>
 #include <stdlib.h>
-
-//TODO: change the type of the value of the struct to all int
 
 int isValid(char c) {
     return c != ERROR && c != ASSERT;
 }
 
 char coordinates(char board[][TAM], chute_t c) {
-  int x = (int)(c.x - 'a'), y = c.y;
-
-  return board[x][y];
+  return board[c.x][c.y];
 }
 
 chute_t iaChute(char board[][TAM]) {
   chute_t chute;
 
   do {
-    chute.x = 'A'+ rand() % (TAM-1);
+    chute.x = rand() % TAM;
     chute.y = rand() % TAM;
   } while(!isValid(coordinates(board, chute)));
 
@@ -32,12 +29,12 @@ int shoot(char board[][TAM]) {
 
     if(result == WATER) {
         printf("\nAGUA!!\n\n");
-        board[(int)(s.x - 'a')][s.y] = ASSERT;
+        board[s.x][s.y] = ASSERT;
     }
 
     else if(result == SHIP) {
         printf("\nBOMBA!!\n\n");
-        board[(int)(s.x - 'a')][s.y] = ERROR;
+        board[s.x][s.y] = ERROR;
         return 1;
     }
     else {
