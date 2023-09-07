@@ -8,7 +8,6 @@
 #include <stdlib.h>
 #include <time.h>
 
-//TODO: Play user against the machine
 //TODO: Improve IA
 //Render UI
 
@@ -44,16 +43,15 @@ int main()
         clearscr();
         if(i % 2 == 0) {
             printf("\nVez do player\n\n");
-            //if(shoot(iaBoard) == 1) {
-            //    iaShips--;
-            //}
-            humanShoot(iaBoard);
+            if(shoot(iaBoard, "player") == 1) {
+                iaShips--;
+            }
             debugRender(iaBoard);
             printf("\nTotal de acertos: %d\n\n", SHIPS-iaShips);
         }
         else {
             printf("\nVez da IA\n\n");
-            if(shoot(playerBoard) == 1) {
+            if(shoot(playerBoard, "ia") == 1) {
                 playerShips--;
             }
             debugRender(playerBoard);

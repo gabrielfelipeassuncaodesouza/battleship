@@ -8,7 +8,8 @@ typedef struct {
   int y;
 } chute_t;
 
-int isShootValid(char shoot[3]);
-void humanShoot(char board[][TAM]);
+int isFormatValid(char shoot[3]);
+chute_t humanShoot(char board[][TAM]);
+chute_t strToChute(char buf[4]);
 
 #endif

@@ -3,8 +3,9 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
-int isValid(char c) {
+int isEmpty(char c) {
     return c != ERROR && c != ASSERT;
 }
 
@@ -18,13 +19,21 @@ chute_t iaChute(char board[][TAM]) {
   do {
     chute.x = rand() % TAM;
     chute.y = rand() % TAM;
-  } while(!isValid(coordinates(board, chute)));
+  } while(!isEmpty(coordinates(board, chute)));
 
   return chute;
 }
 
-int shoot(char board[][TAM]) {
-    chute_t s = iaChute(board);
+int shoot(char board[][TAM], const char* player) {
+
+    chute_t s;
+    if(strcmp(player, "ia") == 0) { 
+      s = iaChute(board);
+    }
+    else {
+      s = humanShoot(board);
+    }
+
     char result = coordinates(board, s);
 
     if(result == WATER) {
