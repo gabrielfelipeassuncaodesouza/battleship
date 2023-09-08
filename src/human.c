@@ -41,7 +41,7 @@ chute_t humanShoot(element_t board[][TAM]) {
   char buf[4];
   chute_t chute;
 
-  do {
+  while(1) {
     printf("Digite as coordenadas do chute: ");
     scanf("%s", buf);
     while(getchar() != '\n');
@@ -53,7 +53,8 @@ chute_t humanShoot(element_t board[][TAM]) {
 
     chute = strToChute(buf);
 
-  } while(!isEmpty(coordinates(board, chute)));
+    if(isEmpty(coordinates(board, chute))) break;
+  }
 
   printf("You choose %d%d\n", chute.x, chute.y);
 

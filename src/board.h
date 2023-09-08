@@ -4,11 +4,11 @@
 #include "globconst.h"
 #include <stddef.h>
 
-#define TAM 5
+#define TAM 10
 
-#define WATER {'~', 'N'}
-#define ERROR {'E', 'N'}
-#define ASSERT {'A', 'N'}
+#define WATER (element_t){1, '~', 'N'}
+#define ERROR (element_t){1, 'E', 'N'}
+#define ASSERT (element_t){1, 'A', 'N'}
 
 void assign(element_t* dest, element_t origin); 
 int isEqual(element_t e1, element_t e2);

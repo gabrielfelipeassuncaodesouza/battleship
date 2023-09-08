@@ -8,7 +8,7 @@
 #include <string.h>
 
 int isEmpty(element_t c) {
-    return !isEqual(c, (element_t)ERROR) && !isEqual(c, (element_t)ASSERT);
+    return !isEqual(c, ERROR) && !isEqual(c, ASSERT);
 }
 
 element_t coordinates(element_t board[][TAM], chute_t c) {
@@ -38,14 +38,14 @@ int shoot(element_t board[][TAM], const char* player) {
 
     element_t result = coordinates(board, s);
 
-    if(isEqual(result, (element_t)WATER)) {
+    if(isEqual(result, WATER)) {
         printf("\nAGUA!!\n\n");
-        assign(&board[s.x][s.y], (element_t)ASSERT);
+        assign(&board[s.x][s.y], ASSERT);
     }
 
-    else if(isEqual(result, (element_t)SHIP)) {
+    else if(isEqual(result, SHIP)) {
         printf("\nBOMBA!!\n\n");
-        assign(&board[s.x][s.y], (element_t)ERROR);
+        assign(&board[s.x][s.y], ERROR);
         return 1;
     }
     else {

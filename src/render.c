@@ -67,19 +67,19 @@ void renderBoard(element_t board[][TAM]) {
 
         for(int part = 0; part < 5; part++) {
             for(int j = 0; j < TAM; j++) {
-                char * color = (isEqual(board[i][j], (element_t)ERROR)) ? "\x1b[31m" : 
-                               (isEqual(board[i][j], (element_t)ASSERT)) ? "\x1b[35m" : 
-                               (isEqual(board[i][j], (element_t)SHIP)) ? "\x1b[32m" : ""; 
+                char * color = (isEqual(board[i][j], ERROR)) ? "\x1b[31m" : 
+                               (isEqual(board[i][j], ASSERT)) ? "\x1b[35m" : 
+                               (isEqual(board[i][j], SHIP)) ? "\x1b[32m" : ""; 
 
                 printf("%s", color);
 
-                if(isEqual(board[i][j], (element_t)WATER)) {
+                if(isEqual(board[i][j], WATER)) {
                     printPart(wave_ui, part);
-                } else if(isEqual(board[i][j], (element_t)SHIP)) {
+                } else if(isEqual(board[i][j], SHIP)) {
                     printPart(ship_ui, part);
-                } else if(isEqual(board[i][j], (element_t)ASSERT)) {
+                } else if(isEqual(board[i][j], ASSERT)) {
                     printPart(assert_ui, part);
-                } else if(isEqual(board[i][j], (element_t)ERROR)) {
+                } else if(isEqual(board[i][j], ERROR)) {
                     printPart(miss_ui, part);
                 }
                 printf("\x1b[m");

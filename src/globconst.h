@@ -3,11 +3,12 @@
 
 #define SHIPS 5
 
-#define SHIP { 'N', 'H' }
-
 typedef struct {
+  int tam;
   char type;
   char dir;
 } element_t;
+
+#define SHIP (element_t){2, 'N', 'H' }
 
 #endif
