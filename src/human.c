@@ -1,4 +1,5 @@
 #include "board.h"
+#include "globconst.h"
 #include "human.h"
 #include "shoot.h"
 
@@ -36,7 +37,7 @@ chute_t strToChute(char buf[4]) {
   return c;
 }
 
-chute_t humanShoot(char board[][TAM]) {
+chute_t humanShoot(element_t board[][TAM]) {
   char buf[4];
   chute_t chute;
 

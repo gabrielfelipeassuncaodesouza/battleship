@@ -1,19 +1,21 @@
 #include "shoot.h"
+#include "board.h"
+#include "globconst.h"
 #include "human.h"
 
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
-int isEmpty(char c) {
-    return c != ERROR && c != ASSERT;
+int isEmpty(element_t c) {
+    return !isEqual(c, (element_t)ERROR) && !isEqual(c, (element_t)ASSERT);
 }
 
-char coordinates(char board[][TAM], chute_t c) {
+element_t coordinates(element_t board[][TAM], chute_t c) {
   return board[c.x][c.y];
 }
 
-chute_t iaChute(char board[][TAM]) {
+chute_t iaChute(element_t board[][TAM]) {
   chute_t chute;
 
   do {
@@ -24,7 +26,7 @@ chute_t iaChute(char board[][TAM]) {
   return chute;
 }
 
-int shoot(char board[][TAM], const char* player) {
+int shoot(element_t board[][TAM], const char* player) {
 
     chute_t s;
     if(strcmp(player, "ia") == 0) { 
@@ -34,16 +36,16 @@ int shoot(char board[][TAM], const char* player) {
       s = humanShoot(board);
     }
 
-    char result = coordinates(board, s);
+    element_t result = coordinates(board, s);
 
-    if(result == WATER) {
+    if(isEqual(result, (element_t)WATER)) {
         printf("\nAGUA!!\n\n");
-        board[s.x][s.y] = ASSERT;
+        assign(&board[s.x][s.y], (element_t)ASSERT);
     }
 
-    else if(result == SHIP) {
+    else if(isEqual(result, (element_t)SHIP)) {
         printf("\nBOMBA!!\n\n");
-        board[s.x][s.y] = ERROR;
+        assign(&board[s.x][s.y], (element_t)ERROR);
         return 1;
     }
     else {

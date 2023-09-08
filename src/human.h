@@ -2,6 +2,7 @@
 #define _H_HUMAN
 
 #include "board.h"
+#include "globconst.h"
 
 typedef struct {
   int x;
@@ -9,7 +10,7 @@ typedef struct {
 } chute_t;
 
 int isFormatValid(char shoot[3]);
-chute_t humanShoot(char board[][TAM]);
+chute_t humanShoot(element_t board[][TAM]);
 chute_t strToChute(char buf[4]);
 
 #endif

@@ -4,11 +4,24 @@
 #include <string.h>
 #include <time.h>
 
-void initBoard(char board[][TAM], size_t size) {
-    memset(board, WATER, size);
+void assign(element_t* dest, element_t origin) {
+  dest->type = origin.type;
+  dest->dir = origin.dir;
 }
 
-void putShips(char board[][TAM]) {
+int isEqual(element_t e1, element_t e2) {
+  return e1.type == e2.type && e1.dir == e2.dir;
+}
+
+void initBoard(element_t board[][TAM], size_t size) {
+  for(int i = 0; i < TAM; i++) {
+    for(int j = 0; j < TAM; j++) {
+      assign(&board[i][j], (element_t)WATER); 
+    }
+  }
+}
+
+void putShips(element_t board[][TAM]) {
     for (int i = 0; i < SHIPS; i++)
     {
         int x, y;
@@ -16,8 +29,8 @@ void putShips(char board[][TAM]) {
         {
             x = rand() % TAM;
             y = rand() % TAM;
-        } while (board[x][y] == SHIP);
+        } while(isEqual(board[x][y], (element_t)SHIP));
 
-        board[x][y] = SHIP;
+        assign(&board[x][y], (element_t)SHIP);
     }
 }

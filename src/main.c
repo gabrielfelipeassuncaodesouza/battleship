@@ -16,8 +16,8 @@ int main()
 {
     srand(time(NULL));
 
-    char playerBoard[TAM][TAM];
-    char iaBoard[TAM][TAM];
+    element_t playerBoard[TAM][TAM];
+    element_t iaBoard[TAM][TAM];
 
     initBoard(playerBoard, sizeof(playerBoard));
     initBoard(iaBoard, sizeof(iaBoard));

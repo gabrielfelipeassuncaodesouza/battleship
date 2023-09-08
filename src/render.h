@@ -2,10 +2,11 @@
 #define _H_RENDER
 
 #include "board.h"
+#include "globconst.h"
 
 void clearscr();
-void debugRender(char board[][TAM]);
-void renderBoard(char board[][TAM]);
+void debugRender(element_t board[][TAM]);
+void renderBoard(element_t board[][TAM]);
 void printPart(char draw[5][15], int part);
 
 #endif
