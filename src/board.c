@@ -38,38 +38,40 @@ void assign(element_t* dest, element_t origin) {
 void initBoard(element_t board[][TAM], size_t size) {
   for(int i = 0; i < TAM; i++) {
     for(int j = 0; j < TAM; j++) {
-      assign(&board[i][j], (element_t)WATER); 
+      assign(&board[i][j], WATER); 
     }
   }
 }
 
-void putShips(element_t board[][TAM]) {
+void putShips(element_t board[][TAM], element_t ships[SHIPS]) {
     for (int i = 0; i < SHIPS; i++) {
         int x, y; //coordenadas x e y
-        int length = SUBMARIN.tam; //!fix here
+        int length = ships[i].tam;
 
-        int xlimit, ylimit;
+        //int orient = rand() % 2;
+        //ships[i].dir = (orient == 0) ? 'H' : 'V';
 
-        if(SUBMARIN.dir == 'H') { //!fix here
-          xlimit = TAM;
+        int xlimit = TAM, ylimit = TAM;
+
+        if(ships[i].dir == 'H') {
           ylimit = TAM - length + 1;
         }
-        else if(SUBMARIN.dir == 'V') { //!fix here
+        else if(ships[i].dir == 'V') {
           xlimit = TAM - length + 1;
-          ylimit = TAM;
         }
 
+        chute_t c;
         do {
             x = rand() % xlimit;
             y = rand() % ylimit;
-        } while(!isValid(board, SUBMARIN, (chute_t){x, y})); //!fix here
+        } while(!isValid(board, ships[i], (chute_t){x, y}));
 
         //* Improve and refactor this function (it is not eficient)
-        for(int j = 0; j < SUBMARIN.tam; j++) {
-            if(SUBMARIN.dir == 'H') //!fix here
-              assign(&board[x][y+j], (element_t){ length--, SUBMARIN.type, SUBMARIN.dir }); //!fix here
+        for(int j = 0; j < ships[i].tam; j++) {
+            if(ships[i].dir == 'H')
+              assign(&board[x][y+j], (element_t){ length--, ships[i].type, ships[i].dir });
             else
-              assign(&board[x+j][y], (element_t){ length--, SUBMARIN.type, SUBMARIN.dir}); //!fix here
+              assign(&board[x+j][y], (element_t){ length--, ships[i].type, ships[i].dir});
         }
     }
 }

@@ -50,13 +50,11 @@ chute_t humanShoot(element_t board[][TAM]) { //function that allows the human to
       printf("Coordenada inválida!\n");
       continue;
     }
-
     chute = strToChute(buf);
+
+    printf("\nYou choose %d %d\n", chute.x, chute.y);
 
     if(isEmpty(coordinates(board, chute))) break;
   }
-
-  printf("You choose %d%d\n", chute.x, chute.y);
-
   return chute;
 }

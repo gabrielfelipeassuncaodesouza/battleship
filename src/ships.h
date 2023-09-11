@@ -9,8 +9,8 @@ typedef struct {
   char dir;
 } element_t;
 
-#define SUBMARIN    (element_t){4, 'S', 'H' }
-#define BATTLESHIP  (element_t){2, 'B', 'V' }
+#define SUBMARIN    (element_t){1, 'S', 'H' }
+#define BATTLESHIP  (element_t){2, 'B', 'H' }
 #define CRUISE      (element_t){3, 'C', 'H' }
 
 //TODO: the user will chose the orientiation

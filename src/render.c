@@ -61,7 +61,6 @@ void debugRender(element_t board[][TAM]) {
 }
 
 void renderBoard(element_t board[][TAM]) {
-
     for(int i = 0; i < TAM; i++) {
         //printf("%c\t", 'A' + i);
 

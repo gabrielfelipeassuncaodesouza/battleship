@@ -50,7 +50,7 @@ int isShipDestroyed(element_t board[][TAM], element_t e, chute_t c) {
   return 1;
 }
 
-int shoot(element_t board[][TAM], const char* player) {
+int shoot(element_t board[][TAM], const char* player) { //!!!!!!!!1COORRRECT THIS FUNCTION
     chute_t s;
     if(strcmp(player, "ia") == 0) { 
       s = iaChute(board);
@@ -61,16 +61,16 @@ int shoot(element_t board[][TAM], const char* player) {
 
     element_t result = coordinates(board, s);
 
-    if(isEqual(result, WATER)) {
+    if(isEqual(result, WATER)) { //!fix here
         printf("\nAGUA!!\n\n");
         assign(&board[s.x][s.y], ASSERT);
     }
 
-    else if(isEqual(result, SUBMARIN)) { //fix here
+    else if(isEqual(result, SUBMARIN)) { //!fix here
         printf("\nBOMBA!!\n\n");
-        assign(&board[s.x][s.y], ERROR);
+        assign(&board[s.x][s.y], ERROR); 
         
-        if(isShipDestroyed(board, SUBMARIN, s)) {
+        if(isShipDestroyed(board, SUBMARIN, s)) { //!fix her
           return 1;
         }
     }
