@@ -15,7 +15,7 @@ int isEqual(element_t e1, element_t e2) {
 
 int isValid(element_t board[][TAM], element_t e, chute_t c) {
   //* Refactor this code (it is not eficient)
-  for(int i = 0; i < e.tam; i++) { //fix here
+  for(int i = 0; i < e.tam; i++) {
     if(e.dir == 'H' && !isEqual(board[c.x][c.y+i], WATER)) { 
       return 0;
     }
@@ -43,13 +43,20 @@ void initBoard(element_t board[][TAM], size_t size) {
   }
 }
 
+chute_t iaPut(int xlimit, int ylimit) {
+  chute_t c;
+  c.x = rand() % xlimit;
+  c.y = rand() % ylimit;
+  
+  return c;
+}
+
 void putShips(element_t board[][TAM], element_t ships[SHIPS]) {
     for (int i = 0; i < SHIPS; i++) {
-        int x, y; //coordenadas x e y
         int length = ships[i].tam;
 
-        //int orient = rand() % 2;
-        //ships[i].dir = (orient == 0) ? 'H' : 'V';
+        int orient = rand() % 2;
+        ships[i].dir = (orient == 0) ? 'H' : 'V';
 
         int xlimit = TAM, ylimit = TAM;
 
@@ -62,16 +69,18 @@ void putShips(element_t board[][TAM], element_t ships[SHIPS]) {
 
         chute_t c;
         do {
-            x = rand() % xlimit;
-            y = rand() % ylimit;
-        } while(!isValid(board, ships[i], (chute_t){x, y}));
+            c = iaPut(xlimit, ylimit);
+        } while(!isValid(board, ships[i], c));
 
         //* Improve and refactor this function (it is not eficient)
         for(int j = 0; j < ships[i].tam; j++) {
-            if(ships[i].dir == 'H')
-              assign(&board[x][y+j], (element_t){ length--, ships[i].type, ships[i].dir });
-            else
-              assign(&board[x+j][y], (element_t){ length--, ships[i].type, ships[i].dir});
+            if(ships[i].dir == 'H') {
+              assign(&board[c.x][c.y+j], (element_t){ length, ships[i].type, ships[i].dir });
+            } else {
+              assign(&board[c.x+j][c.y], (element_t){ length, ships[i].type, ships[i].dir });
+            }
+
+            length--;
         }
     }
 }

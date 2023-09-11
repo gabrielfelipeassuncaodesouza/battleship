@@ -26,18 +26,15 @@ int isFormatValid(char shoot[3]) { //check if the move typed by the user is vali
   return 1;
 }
 
-chute_t strToChute(char buf[4]) { //comnvert the move to a valid move struct
+chute_t strToChute(char buf[4]) { //convert the move to a valid move struct
   chute_t c;
   c.x = (int)(tolower(buf[0])) - 97;
-
-  int y;
-  sscanf(&buf[1], "%d", &y);
-  c.y = y-1;
+  c.y = atoi(&buf[1]) - 1;
 
   return c;
 }
 
-chute_t humanShoot(element_t board[][TAM]) { //function that allows the human to guess a position
+chute_t humanShoot(element_t board[][TAM]) {
   char buf[4];
   chute_t chute;
 
