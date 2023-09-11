@@ -2,7 +2,7 @@
 #define _H_HUMAN
 
 #include "board.h"
-#include "globconst.h"
+#include "human.h"
 
 typedef struct {
   int x;

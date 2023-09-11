@@ -1,8 +1,12 @@
+/** header files of other archives **/
+
 #include "board.h"
-#include "globconst.h"
+#include "ships.h"
 #include "human.h"
 #include "render.h"
 #include "shoot.h"
+
+/** clibs **/
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -11,14 +15,11 @@
 //TODO: Improve IA
 //Render UI
 
-
-int main()
-{
+int main() {
     srand(time(NULL));
 
     element_t playerBoard[TAM][TAM];
     element_t iaBoard[TAM][TAM];
-
     initBoard(playerBoard, sizeof(playerBoard));
     initBoard(iaBoard, sizeof(iaBoard));
 
@@ -29,7 +30,6 @@ int main()
     int iaShips = SHIPS;
 
     clearscr();
-
     printf("Board of Player:\n\n");
     debugRender(playerBoard);
     printf("\nBoard of IA:\n\n");

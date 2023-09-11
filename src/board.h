@@ -1,7 +1,7 @@
 #ifndef _H_BOARD
 #define _H_BOARD
 
-#include "globconst.h"
+#include "ships.h"
 #include <stddef.h>
 
 #define TAM 10

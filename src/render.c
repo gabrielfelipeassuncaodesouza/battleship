@@ -1,5 +1,5 @@
 #include "board.h"
-#include "globconst.h"
+#include "ships.h"
 #include "render.h"
 
 #include <stdio.h>
@@ -69,13 +69,13 @@ void renderBoard(element_t board[][TAM]) {
             for(int j = 0; j < TAM; j++) {
                 char * color = (isEqual(board[i][j], ERROR)) ? "\x1b[31m" : 
                                (isEqual(board[i][j], ASSERT)) ? "\x1b[35m" : 
-                               (isEqual(board[i][j], SHIP)) ? "\x1b[32m" : ""; 
+                               (isEqual(board[i][j], SUBMARIN)) ? "\x1b[32m" : ""; //fix here
 
                 printf("%s", color);
 
                 if(isEqual(board[i][j], WATER)) {
                     printPart(wave_ui, part);
-                } else if(isEqual(board[i][j], SHIP)) {
+                } else if(isEqual(board[i][j], SUBMARIN)) { //fix here
                     printPart(ship_ui, part);
                 } else if(isEqual(board[i][j], ASSERT)) {
                     printPart(assert_ui, part);

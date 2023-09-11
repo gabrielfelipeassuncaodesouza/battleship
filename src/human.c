@@ -1,5 +1,5 @@
 #include "board.h"
-#include "globconst.h"
+#include "ships.h"
 #include "human.h"
 #include "shoot.h"
 
@@ -7,7 +7,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-int isFormatValid(char shoot[3]) {
+int isFormatValid(char shoot[3]) { //check if the move typed by the user is valid
   if(!isalpha(shoot[0]) || !isdigit(shoot[1])) {
     return 0;
   }
@@ -26,7 +26,7 @@ int isFormatValid(char shoot[3]) {
   return 1;
 }
 
-chute_t strToChute(char buf[4]) {
+chute_t strToChute(char buf[4]) { //comnvert the move to a valid move struct
   chute_t c;
   c.x = (int)(tolower(buf[0])) - 97;
 
@@ -37,7 +37,7 @@ chute_t strToChute(char buf[4]) {
   return c;
 }
 
-chute_t humanShoot(element_t board[][TAM]) {
+chute_t humanShoot(element_t board[][TAM]) { //function that allows the human to guess a position
   char buf[4];
   chute_t chute;
 

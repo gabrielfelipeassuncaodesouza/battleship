@@ -2,7 +2,7 @@
 #define _H_SHOOT
 
 #include "board.h"
-#include "globconst.h"
+#include "ships.h"
 #include "human.h"
 
 int shoot(element_t board[][TAM], const char* player);

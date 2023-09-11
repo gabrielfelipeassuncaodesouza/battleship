@@ -1,6 +1,6 @@
 #include "shoot.h"
 #include "board.h"
-#include "globconst.h"
+#include "ships.h"
 #include "human.h"
 
 #include <stdio.h>
@@ -26,8 +26,31 @@ chute_t iaChute(element_t board[][TAM]) {
   return chute;
 }
 
-int shoot(element_t board[][TAM], const char* player) {
+int isShipDestroyed(element_t board[][TAM], element_t e, chute_t c) {
+  for(int i = 0; i < e.tam; i++) {
+    if(e.dir == 'H') {
 
+      if(c.y-i < 0) break;
+      if(c.y+i >= TAM) break;
+
+      if(isEqual(board[c.x][c.y+i], e) || isEqual(board[c.x][c.y-i], e)) { //!fix here
+        return 0;
+      }
+    }
+    else if(e.dir == 'V') {
+
+      if(c.x-i < 0) break;
+      if(c.x+i >= TAM) break;
+
+      if(!isEqual(board[c.x+i][c.y], e)) { //!fix here
+        return 0;
+      }
+    }
+  }
+  return 1;
+}
+
+int shoot(element_t board[][TAM], const char* player) {
     chute_t s;
     if(strcmp(player, "ia") == 0) { 
       s = iaChute(board);
@@ -43,10 +66,13 @@ int shoot(element_t board[][TAM], const char* player) {
         assign(&board[s.x][s.y], ASSERT);
     }
 
-    else if(isEqual(result, SHIP)) {
+    else if(isEqual(result, SUBMARIN)) { //fix here
         printf("\nBOMBA!!\n\n");
         assign(&board[s.x][s.y], ERROR);
-        return 1;
+        
+        if(isShipDestroyed(board, SUBMARIN, s)) {
+          return 1;
+        }
     }
     else {
       printf("\nError\n\n");

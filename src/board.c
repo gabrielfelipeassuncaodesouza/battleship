@@ -1,19 +1,38 @@
 #include "board.h"
-#include "globconst.h"
+#include "human.h"
+#include "ships.h"
+
 #include <stdlib.h>
 #include <string.h>
 #include <time.h>
+
+/** Verification functions **/
+
+int isEqual(element_t e1, element_t e2) {
+  return  e1.type == e2.type && 
+          e1.dir == e2.dir;
+}
+
+int isValid(element_t board[][TAM], element_t e, chute_t c) {
+  //* Refactor this code (it is not eficient)
+  for(int i = 0; i < e.tam; i++) { //fix here
+    if(e.dir == 'H' && !isEqual(board[c.x][c.y+i], WATER)) { 
+      return 0;
+    }
+    else if(e.dir == 'V' && !isEqual(board[c.x+i][c.y], WATER)) {
+      return 0;
+    }
+  }
+
+  return 1;
+}
+
+/** Init functions **/
 
 void assign(element_t* dest, element_t origin) {
   dest->tam = origin.tam;
   dest->type = origin.type;
   dest->dir = origin.dir;
-}
-
-int isEqual(element_t e1, element_t e2) {
-  return e1.tam == e2.tam &&
-          e1.type == e2.type && 
-          e1.dir == e2.dir;
 }
 
 void initBoard(element_t board[][TAM], size_t size) {
@@ -24,52 +43,33 @@ void initBoard(element_t board[][TAM], size_t size) {
   }
 }
 
-int isValid(element_t board[][TAM], element_t e, int x, int y) {
-  for(int i = 0; i < SHIP.tam; i++) {
-    if(SHIP.dir == 'H' && !isEqual(board[x][y+i], WATER)) {
-      return 0;
-    }
-    else if(SHIP.dir == 'V' && !isEqual(board[x+i][y], WATER)) {
-      return 0;
-    }
-    else if(SHIP.dir == 'N' && !isEqual(board[x][y], WATER)) {
-      return 0;
-    }
-  }
-
-  return 1;
-}
-
 void putShips(element_t board[][TAM]) {
     for (int i = 0; i < SHIPS; i++) {
         int x, y; //coordenadas x e y
-        int length = SHIP.tam;
+        int length = SUBMARIN.tam; //!fix here
 
         int xlimit, ylimit;
 
-        if(SHIP.dir == 'H') {
+        if(SUBMARIN.dir == 'H') { //!fix here
           xlimit = TAM;
           ylimit = TAM - length + 1;
         }
-        else if(SHIP.dir == 'V') {
+        else if(SUBMARIN.dir == 'V') { //!fix here
           xlimit = TAM - length + 1;
-          ylimit = TAM;
-        }
-        else if(SHIP.dir == 'N') {
-          xlimit = TAM;
           ylimit = TAM;
         }
 
         do {
             x = rand() % xlimit;
             y = rand() % ylimit;
-        } while(!isValid(board, SHIP, x, y));
+        } while(!isValid(board, SUBMARIN, (chute_t){x, y})); //!fix here
 
-        for(int j = 0; j < SHIP.tam; j++) {
-            if(SHIP.dir == 'H')
-              assign(&board[x][y+j], SHIP);
+        //* Improve and refactor this function (it is not eficient)
+        for(int j = 0; j < SUBMARIN.tam; j++) {
+            if(SUBMARIN.dir == 'H') //!fix here
+              assign(&board[x][y+j], (element_t){ length--, SUBMARIN.type, SUBMARIN.dir }); //!fix here
             else
-              assign(&board[x+j][y], SHIP);
+              assign(&board[x+j][y], (element_t){ length--, SUBMARIN.type, SUBMARIN.dir}); //!fix here
         }
     }
 }

@@ -2,7 +2,7 @@
 #define _H_RENDER
 
 #include "board.h"
-#include "globconst.h"
+#include "ships.h"
 
 void clearscr();
 void debugRender(element_t board[][TAM]);
