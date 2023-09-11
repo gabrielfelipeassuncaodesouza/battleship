@@ -1,7 +1,10 @@
 #include "board.h"
 #include "human.h"
+#include "render.h"
 #include "ships.h"
 
+#include <ctype.h>
+#include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <time.h>
@@ -43,6 +46,49 @@ void initBoard(element_t board[][TAM], size_t size) {
   }
 }
 
+chute_t playerPut(int xlimit, int ylimit) {
+  char buf[4];
+  chute_t c;
+
+  while(1) {
+    printf("\nDigite as coordenadas do navio: ");
+    scanf("%s", buf);
+    while(getchar() != '\n');
+
+    if(!isFormatValid(buf)) {
+      printf("\nCoordenada inválida!\n");
+      continue;
+    }
+
+    c = strToChute(buf);
+    if(c.x >= xlimit || c.y >= ylimit) {
+      printf("\nInvalid\n");
+    }
+    else {
+      break;
+    }
+  }
+
+  return c;
+}
+
+char playerDir() {
+  char dir;
+
+  while(1) {
+    printf("\nType the direction of the ship (H = Horizontal V = Vertical): ");
+    scanf("%c", &dir);
+    while(getchar() != '\n');
+
+    if(toupper(dir) != 'H' && toupper(dir) != 'V') {
+      printf("\nInvalid orient\n");
+      continue;
+    }
+    else break;
+  }
+  return toupper(dir);
+}
+
 chute_t iaPut(int xlimit, int ylimit) {
   chute_t c;
   c.x = rand() % xlimit;
@@ -51,12 +97,28 @@ chute_t iaPut(int xlimit, int ylimit) {
   return c;
 }
 
-void putShips(element_t board[][TAM], element_t ships[SHIPS]) {
+char iaDir() {
+  return ((rand() % 2 == 0) ? 'H' : 'V');
+}
+
+void putShips(element_t board[][TAM], element_t ships[SHIPS], const char* who) {
     for (int i = 0; i < SHIPS; i++) {
         int length = ships[i].tam;
+        char orient;
 
-        int orient = rand() % 2;
-        ships[i].dir = (orient == 0) ? 'H' : 'V';
+        if(strcmp(who, "player") == 0) {
+          clearscr();
+          printf("\nCurrent board:\n\n");
+          debugRender(board);
+        }
+
+        if(strcmp(who, "ia") == 0)
+          orient = iaDir();
+        else {
+          orient = playerDir();
+        }
+
+        ships[i].dir = orient;
 
         int xlimit = TAM, ylimit = TAM;
 
@@ -69,7 +131,11 @@ void putShips(element_t board[][TAM], element_t ships[SHIPS]) {
 
         chute_t c;
         do {
-            c = iaPut(xlimit, ylimit);
+            if(strcmp(who, "ia") == 0) {
+              c = iaPut(xlimit, ylimit);
+            } else {
+              c = playerPut(xlimit, ylimit);
+            }
         } while(!isValid(board, ships[i], c));
 
         //* Improve and refactor this function (it is not eficient)
@@ -81,6 +147,11 @@ void putShips(element_t board[][TAM], element_t ships[SHIPS]) {
             }
 
             length--;
+        }
+
+        if(strcmp(who, "player") == 0) {
+          printf("\nShip putted succesfully\n");
+          pause();
         }
     }
 }

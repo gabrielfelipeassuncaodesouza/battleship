@@ -23,10 +23,10 @@ int main() {
     initBoard(playerBoard, sizeof(playerBoard));
     initBoard(iaBoard, sizeof(iaBoard));
 
-    element_t ships[] = { SUBMARIN, CRUISE, CRUISE, BATTLESHIP, BATTLESHIP };
+    element_t ships[] = { SUBMARIN, BATTLESHIP, BATTLESHIP, CRUISE, CRUISE };
 
-    putShips(playerBoard, ships);
-    putShips(iaBoard, ships);
+    putShips(playerBoard, ships, "player");
+    putShips(iaBoard, ships, "ia");
 
     int playerShips = SHIPS;
     int iaShips = SHIPS;

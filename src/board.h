@@ -13,6 +13,6 @@
 void assign(element_t* dest, element_t origin); 
 int isEqual(element_t e1, element_t e2);
 void initBoard(element_t board[][TAM], size_t size);
-void putShips(element_t board[][TAM], element_t ships[SHIPS]);
+void putShips(element_t board[][TAM], element_t ships[SHIPS], const char* who);
 
 #endif

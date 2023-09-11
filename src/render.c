@@ -40,10 +40,14 @@ void printPart(char draw[5][15], int part) {
 	printf("%s", draw[part]);
 }
 
-void clearscr()
-{
+void clearscr() {
     printf("\x1b[2J");
     printf("\x1b[H");
+}
+
+void pause() {
+  printf("Press any key to continue... ");
+  getchar();
 }
 
 void debugRender(element_t board[][TAM]) {  

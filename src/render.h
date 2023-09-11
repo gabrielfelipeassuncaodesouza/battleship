@@ -8,5 +8,6 @@ void clearscr();
 void debugRender(element_t board[][TAM]);
 void renderBoard(element_t board[][TAM]);
 void printPart(char draw[5][15], int part);
+void pause();
 
 #endif
