@@ -7,8 +7,8 @@
 #include <stdlib.h>
 #include <string.h>
 
-int isEmpty(element_t c) {
-    return !isEqual(c, ERROR) && !isEqual(c, ASSERT);
+int isPositionShooted(element_t c) {
+    return isEqual(c, ERROR) || isEqual(c, ASSERT);
 }
 
 element_t coordinates(element_t board[][TAM], chute_t c) {
@@ -21,7 +21,7 @@ chute_t iaChute(element_t board[][TAM]) {
   do {
     chute.x = rand() % TAM;
     chute.y = rand() % TAM;
-  } while(!isEmpty(coordinates(board, chute)));
+  } while(isPositionShooted(coordinates(board, chute)));
 
   return chute;
 }

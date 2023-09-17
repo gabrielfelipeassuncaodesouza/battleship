@@ -51,7 +51,7 @@ chute_t humanShoot(element_t board[][TAM]) {
 
     printf("\nYou choose %d %d\n", chute.x, chute.y);
 
-    if(isEmpty(coordinates(board, chute))) break;
+    if(!isPositionShooted(coordinates(board, chute))) break;
   }
   return chute;
 }

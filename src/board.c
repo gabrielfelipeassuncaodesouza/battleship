@@ -104,7 +104,7 @@ char iaDir() {
 void putShips(element_t board[][TAM], element_t ships[SHIPS], const char* who) {
     for (int i = 0; i < SHIPS; i++) {
         int length = ships[i].tam;
-        char orient;
+        char orient = 'N';
 
         if(strcmp(who, "player") == 0) {
           clearscr();
@@ -112,14 +112,15 @@ void putShips(element_t board[][TAM], element_t ships[SHIPS], const char* who) {
           debugRender(board);
         }
 
-        if(strcmp(who, "ia") == 0)
-          orient = iaDir();
-        else {
-          orient = playerDir();
+        if(length > 1) {
+          if(strcmp(who, "ia") == 0)
+            orient = iaDir();
+          else {
+            orient = playerDir();
+          }
         }
 
         ships[i].dir = orient;
-
         int xlimit = TAM, ylimit = TAM;
 
         if(ships[i].dir == 'H') {

@@ -6,7 +6,7 @@
 #include "human.h"
 
 int shoot(element_t board[][TAM], const char* player);
-int isEmpty(element_t c);
+int isPositionShooted(element_t c);
 element_t coordinates(element_t board[][TAM], chute_t c);
 
 #endif
