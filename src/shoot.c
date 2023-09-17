@@ -27,23 +27,37 @@ chute_t iaChute(element_t board[][TAM]) {
 }
 
 int isShipDestroyed(element_t board[][TAM], element_t e, chute_t c) {
+  int tam = e.tam;
+  chute_t shipStart = {
+    c.x,
+    c.y
+  }; //coordenada onde começa o navio;
 
-  if(e.tam == 1) {
-    return 1;
+  if(e.type == 'B') {
+    if(e.dir == 'H')
+      shipStart.y = c.y - (BATTLESHIP.tam - tam);
+    else
+      shipStart.x = c.x - (BATTLESHIP.tam - tam);
+
+    tam = BATTLESHIP.tam;
+  }
+  else if(e.type == 'C') {
+    if(e.dir == 'H')
+      shipStart.y = c.y - (CRUISE.tam - tam);
+    else
+      shipStart.x = c.x - (CRUISE.tam - tam);
+
+    tam = CRUISE.tam;
   }
 
-  for(int i = 0; i < e.tam; i++) {
+  for(int i = 0; i < tam; i++) {
     if(e.dir == 'H') {
-
-      //if(c.y-i < 0) break;
-      if(isEqual(board[c.x][c.y+i], e)) {
+      if(isEqual(board[shipStart.x][shipStart.y+i], e)) {
         return 0;
       }
     }
-    else if(e.dir == 'V') {
-
-      //if(c.x-i < 0) break;
-      if(!isEqual(board[c.x+i][c.y], e)) {
+    else {
+      if(isEqual(board[shipStart.x+i][shipStart.y], e)) {
         return 0;
       }
     }
