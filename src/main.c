@@ -32,13 +32,11 @@ int main() {
     int iaShips = SHIPS;
 
     clearscr();
-    printf("Board of Player:\n\n");
+    printf("Your board is here:\n\n");
     debugRender(playerBoard);
-    printf("\nBoard of IA:\n\n");
-    debugRender(iaBoard);
 
-    printf("\nPress any key to start ... ");
-    getchar();
+    putchar('\n');
+    pause();
 
     int i = 0;
     do {
@@ -48,8 +46,8 @@ int main() {
             if(shoot(iaBoard, "player") == 1) {
                 iaShips--;
             }
-            debugRender(iaBoard);
-            printf("\nTotal de acertos: %d\n\n", SHIPS-iaShips);
+            enemyRender(iaBoard);
+            printf("\nNavios derrubados: %d\n\n", SHIPS-iaShips);
         }
         else {
             printf("\nVez da IA\n\n");
@@ -57,7 +55,7 @@ int main() {
                 playerShips--;
             }
             debugRender(playerBoard);
-            printf("\nTotal de acertos: %d\n\n", SHIPS-playerShips);
+            printf("\nNavios derrubados: %d\n\n", SHIPS-playerShips);
         }
 
         i++;

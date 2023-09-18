@@ -19,10 +19,12 @@ int isEqual(element_t e1, element_t e2) {
 int isValid(element_t board[][TAM], element_t e, chute_t c) {
   //* Refactor this code (it is not eficient)
   for(int i = 0; i < e.tam; i++) {
-    if(e.dir == 'H' && !isEqual(board[c.x][c.y+i], WATER)) { 
+    if(e.dir == 'H' && !isEqual(board[c.x][c.y+i], WATER)) {
+      printf("\nInvalid coordinate\n"); 
       return 0;
     }
     else if(e.dir == 'V' && !isEqual(board[c.x+i][c.y], WATER)) {
+      printf("\nInvalid coordinate\n");
       return 0;
     }
   }
@@ -112,31 +114,32 @@ void putShips(element_t board[][TAM], element_t ships[SHIPS], const char* who) {
           debugRender(board);
         }
 
-        if(length > 1) {
-          if(strcmp(who, "ia") == 0)
-            orient = iaDir();
-          else {
-            orient = playerDir();
-          }
-        }
-
-        ships[i].dir = orient;
+        chute_t c;
         int xlimit = TAM, ylimit = TAM;
 
-        if(ships[i].dir == 'H') {
-          ylimit = TAM - length + 1;
-        }
-        else if(ships[i].dir == 'V') {
-          xlimit = TAM - length + 1;
-        }
-
-        chute_t c;
         do {
-            if(strcmp(who, "ia") == 0) {
-              c = iaPut(xlimit, ylimit);
-            } else {
-              c = playerPut(xlimit, ylimit);
+          if(length > 1) {
+            if(strcmp(who, "ia") == 0)
+              orient = iaDir();
+            else {
+              orient = playerDir();
             }
+          }
+
+          ships[i].dir = orient;
+          
+          if(ships[i].dir == 'H') {
+            ylimit = TAM - length + 1;
+          }
+          else if(ships[i].dir == 'V') {
+            xlimit = TAM - length + 1;
+          }
+
+          if(strcmp(who, "ia") == 0) {
+            c = iaPut(xlimit, ylimit);
+          } else {
+            c = playerPut(xlimit, ylimit);
+          }
         } while(!isValid(board, ships[i], c));
 
         //* Improve and refactor this function (it is not eficient)
@@ -151,7 +154,7 @@ void putShips(element_t board[][TAM], element_t ships[SHIPS], const char* who) {
         }
 
         if(strcmp(who, "player") == 0) {
-          printf("\nShip putted succesfully\n");
+          printf("\nShip putted succesfully\n\n");
           pause();
         }
     }

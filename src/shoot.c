@@ -78,12 +78,12 @@ int shoot(element_t board[][TAM], const char* player) {
 
     if(isEqual(result, WATER)) {
         printf("\nAGUA!!\n\n");
-        assign(&board[s.x][s.y], ASSERT);
+        assign(&board[s.x][s.y], ERROR);
     }
 
     else {
         printf("\nBOMBA!!\n\n");
-        assign(&board[s.x][s.y], ERROR); 
+        assign(&board[s.x][s.y], ASSERT); 
         
         if(isShipDestroyed(board, result, s)) {
           return 1;

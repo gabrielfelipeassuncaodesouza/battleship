@@ -1,9 +1,11 @@
 #include "board.h"
-#include "ships.h"
 #include "render.h"
+#include "ships.h"
+#include "shoot.h"
 
 #include <stdio.h>
 
+/*
 char ship_ui[5][15] = {
   {"    _~  _~   "},
   {" __|=| |=|__ "},
@@ -20,7 +22,7 @@ char wave_ui[5][15] = {
   {" ~~~~~~~~~~~ "}
 };
 
-char assert_ui[5][15] = {
+char miss_ui[5][15] = {
   {"  x       x  "},
   {"    x   x    "},
   {"      x      "},
@@ -28,7 +30,7 @@ char assert_ui[5][15] = {
   {"  x       x  "}
 };
 
-char miss_ui[5][15] = {
+char assert_ui[5][15] = {
   {"      ,--.!, "},
   {"   __/   -*- "},
   {" ,d08b.  '|` "},
@@ -39,6 +41,7 @@ char miss_ui[5][15] = {
 void printPart(char draw[5][15], int part) {
 	printf("%s", draw[part]);
 }
+*/
 
 void clearscr() {
     printf("\x1b[2J");
@@ -64,9 +67,24 @@ void debugRender(element_t board[][TAM]) {
   }
 }
 
+void enemyRender(element_t board[][TAM]) {  
+  printf("\n\t");
+  for(int i = 1; i <= TAM; i++) printf("%d ", i);
+  putchar('\n');
+
+  for(int i = 0; i < TAM; i++) {
+    printf("%c\t", 'A'+i);
+    for(int j = 0; j < TAM; j++) {
+      printf("%c ", isPositionShooted(board[i][j]) ? board[i][j].type : WATER.type);
+    }
+    putchar('\n');
+  }
+}
+
+ /*
 void renderBoard(element_t board[][TAM]) {
-    for(int i = 0; i < TAM; i++) {
-        //printf("%c\t", 'A' + i);
+  for(int i = 0; i < TAM; i++) {
+        printf("%c\t", 'A' + i);
 
         for(int part = 0; part < 5; part++) {
             for(int j = 0; j < TAM; j++) {
@@ -91,10 +109,11 @@ void renderBoard(element_t board[][TAM]) {
         }
         
 
-    //printf("\n\n\t");
-    //for(int i = 0; i < TAM; i++) {
-    //    printf("%d ", i);
-    //}
-    //putchar('\n');
+    printf("\n\n\t");
+    for(int i = 0; i < TAM; i++) {
+        printf("%d ", i);
+    }
+    putchar('\n');
     }
 }
+*/

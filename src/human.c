@@ -49,8 +49,6 @@ chute_t humanShoot(element_t board[][TAM]) {
     }
     chute = strToChute(buf);
 
-    printf("\nYou choose %d %d\n", chute.x, chute.y);
-
     if(!isPositionShooted(coordinates(board, chute))) break;
   }
   return chute;
