@@ -2,7 +2,7 @@
 
 This game was created to complement the final grade of subject Programming I at Computer Science Course at UNIFAP
 
-### How to run?
+## How to run?
 * In your terminal type
  ```bash
 git clone https://github.com/gabrielfelipeassuncaodesouza/battleship
@@ -15,6 +15,12 @@ git clone https://github.com/gabrielfelipeassuncaodesouza/battleship
 
 Enjoy the application!
 
-### Colaborators
+## Colaborators
 
-[Mateus Magalhaês](https://github.com/mateus-mglh)
+* [Gabriel Felipe](https://github.com/gabrielfelipeassuncaodesouza)
+* [Mateus Magalhaês](https://github.com/mateus-mglh)
+
+## To read
+
+* [Battleship AI video](https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=&cad=rja&uact=8&ved=2ahUKEwiTvKvsprmBAxVSppUCHeVnBRYQwqsBegQIDhAG&url=https%3A%2F%2Fwww.youtube.com%2Fwatch%3Fv%3DEM1s8jHa0L8&usg=AOvVaw3yhjuqhE3ErCjstNcVnE9B&opi=89978449)
+* [Paper](https://pageperso.lis-lab.fr/guilherme.fonseca/battleship_conf.pdf)
