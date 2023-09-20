@@ -4,7 +4,7 @@ This game was created to complement the final grade of subject Programming I at 
 
 ## How to run?
 * In your terminal type
- ```bash
+ ```
 git clone https://github.com/gabrielfelipeassuncaodesouza/battleship
 ```
 * Enter on the directory cloned and type `make` (you sould have make installed)
