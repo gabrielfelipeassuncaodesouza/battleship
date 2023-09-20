@@ -26,7 +26,7 @@ chute_t iaChute(element_t board[][TAM]) {
   return chute;
 }
 
-int isShipDestroyed(element_t board[][TAM], element_t e, chute_t c) {
+int isShipDestroyed(element_t board[][TAM], element_t ships[], element_t e, chute_t c) {
   int tam = e.tam;
   chute_t shipStart = {
     c.x,
@@ -34,37 +34,18 @@ int isShipDestroyed(element_t board[][TAM], element_t e, chute_t c) {
   }; //coordenada onde começa o navio;
 
   //TODO: improve this conditionals (receive the array of ships)
-  if(e.type == 'S') {
-    if(e.dir == 'H')
-      shipStart.y = c.y - (SUBMARIN.tam - tam);
-    else
-      shipStart.x = c.x - (SUBMARIN.tam - tam);
-
-    tam = SUBMARIN.tam;
-  }
-  else if(e.type == 'D') {
-    if(e.dir == 'H')
-      shipStart.y = c.y - (DESTROYER.tam - tam);
-    else
-      shipStart.x = c.x - (DESTROYER.tam - tam);
-
-    tam = DESTROYER.tam;
-  }
-  else if(e.type == 'T') {
-    if(e.dir == 'H')
-      shipStart.y = c.y - (TANKER.tam - tam);
-    else
-      shipStart.x = c.x - (TANKER.tam - tam);
-
-    tam = TANKER.tam;
-  }
-  else if(e.type == 'A') {
-    if(e.dir == 'H')
-      shipStart.y = c.y - (AIRCRAFT.tam - tam);
-    else
-      shipStart.x = c.x - (AIRCRAFT.tam - tam);
-
-    tam = AIRCRAFT.tam;
+  
+  for(int i = 0; i < SHIPS; i++) {
+    if(ships[i].type == e.type) {
+      if(e.dir == 'H') {
+        shipStart.y = c.y - (ships[i].tam - tam);
+      }
+      else {
+        shipStart.x = c.x - (ships[i].tam - tam);
+      }
+      tam = ships[i].tam;
+      break;
+    }
   }
 
   for(int i = 0; i < tam; i++) {
@@ -82,7 +63,7 @@ int isShipDestroyed(element_t board[][TAM], element_t e, chute_t c) {
   return 1;
 }
 
-int shoot(element_t board[][TAM], const char* player) {
+int shoot(element_t board[][TAM], element_t ships[], const char* player) {
     chute_t s;
     if(strcmp(player, "ia") == 0) { 
       s = iaChute(board);
@@ -102,7 +83,7 @@ int shoot(element_t board[][TAM], const char* player) {
         printf("\nBOMBA!!\n\n");
         assign(&board[s.x][s.y], ASSERT); 
         
-        if(isShipDestroyed(board, result, s)) {
+        if(isShipDestroyed(board, ships, result, s)) {
           return 1;
         }
     }

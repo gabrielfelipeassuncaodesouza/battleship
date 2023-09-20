@@ -42,7 +42,7 @@ int main() {
         clearscr();
         if(i % 2 == 0) {
             printf("\nVez do player\n\n");
-            if(shoot(iaBoard, "player") == 1) {
+            if(shoot(iaBoard, ships, "player") == 1) {
                 iaShips--;
             }
             debugRender(iaBoard);
@@ -50,7 +50,7 @@ int main() {
         }
         else {
             printf("\nVez da IA\n\n");
-            if(shoot(playerBoard, "ia") == 1) {
+            if(shoot(playerBoard, ships, "ia") == 1) {
                 playerShips--;
             }
             debugRender(playerBoard);
