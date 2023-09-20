@@ -2,7 +2,6 @@
 #define _H_HUMAN
 
 #include "board.h"
-#include "human.h"
 
 typedef struct {
   int x;

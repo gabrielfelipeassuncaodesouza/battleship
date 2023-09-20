@@ -33,21 +33,38 @@ int isShipDestroyed(element_t board[][TAM], element_t e, chute_t c) {
     c.y
   }; //coordenada onde começa o navio;
 
-  if(e.type == 'B') {
+  //TODO: improve this conditionals (receive the array of ships)
+  if(e.type == 'S') {
     if(e.dir == 'H')
-      shipStart.y = c.y - (BATTLESHIP.tam - tam);
+      shipStart.y = c.y - (SUBMARIN.tam - tam);
     else
-      shipStart.x = c.x - (BATTLESHIP.tam - tam);
+      shipStart.x = c.x - (SUBMARIN.tam - tam);
 
-    tam = BATTLESHIP.tam;
+    tam = SUBMARIN.tam;
   }
-  else if(e.type == 'C') {
+  else if(e.type == 'D') {
     if(e.dir == 'H')
-      shipStart.y = c.y - (CRUISE.tam - tam);
+      shipStart.y = c.y - (DESTROYER.tam - tam);
     else
-      shipStart.x = c.x - (CRUISE.tam - tam);
+      shipStart.x = c.x - (DESTROYER.tam - tam);
 
-    tam = CRUISE.tam;
+    tam = DESTROYER.tam;
+  }
+  else if(e.type == 'T') {
+    if(e.dir == 'H')
+      shipStart.y = c.y - (TANKER.tam - tam);
+    else
+      shipStart.x = c.x - (TANKER.tam - tam);
+
+    tam = TANKER.tam;
+  }
+  else if(e.type == 'A') {
+    if(e.dir == 'H')
+      shipStart.y = c.y - (AIRCRAFT.tam - tam);
+    else
+      shipStart.x = c.x - (AIRCRAFT.tam - tam);
+
+    tam = AIRCRAFT.tam;
   }
 
   for(int i = 0; i < tam; i++) {

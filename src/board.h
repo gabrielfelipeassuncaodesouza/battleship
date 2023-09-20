@@ -8,7 +8,7 @@
 
 #define WATER (element_t){1, '~', 'N'}
 #define ERROR (element_t){1, 'E', 'N'}
-#define ASSERT (element_t){1, 'A', 'N'}
+#define ASSERT (element_t){1, 'X', 'N'}
 
 void assign(element_t* dest, element_t origin); 
 int isEqual(element_t e1, element_t e2);

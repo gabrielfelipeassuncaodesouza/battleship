@@ -13,7 +13,6 @@
 #include <time.h>
 
 //TODO: Improve IA
-//Render UI
 
 int main() {
     srand(time(NULL));
@@ -23,7 +22,7 @@ int main() {
     initBoard(playerBoard, sizeof(playerBoard));
     initBoard(iaBoard, sizeof(iaBoard));
 
-    element_t ships[] = { SUBMARIN, BATTLESHIP, BATTLESHIP, CRUISE, CRUISE };
+    element_t ships[] = { AIRCRAFT, TANKER, TANKER, DESTROYER, DESTROYER, SUBMARIN, SUBMARIN, SUBMARIN };
 
     putShips(playerBoard, ships, "player");
     putShips(iaBoard, ships, "ia");
@@ -46,7 +45,7 @@ int main() {
             if(shoot(iaBoard, "player") == 1) {
                 iaShips--;
             }
-            enemyRender(iaBoard);
+            debugRender(iaBoard);
             printf("\nNavios derrubados: %d\n\n", SHIPS-iaShips);
         }
         else {

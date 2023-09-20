@@ -1,7 +1,7 @@
 #ifndef _H_SHIPS
 #define _H_SHIPS
 
-#define SHIPS 5
+#define SHIPS 8
 
 typedef struct {
   int tam;
@@ -9,8 +9,9 @@ typedef struct {
   char dir;
 } element_t;
 
-#define SUBMARIN    (element_t){1, 'S', 'N' }
-#define BATTLESHIP  (element_t){2, 'B', 'H' }
-#define CRUISE      (element_t){3, 'C', 'H' }
+#define SUBMARIN    (element_t){2, 'S', 'N' }
+#define DESTROYER   (element_t){3, 'D', 'H' }
+#define TANKER      (element_t){4, 'T', 'H' }
+#define AIRCRAFT    (element_t){5, 'A', 'H' }
 
 #endif
