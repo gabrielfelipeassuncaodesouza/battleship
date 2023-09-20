@@ -14,3 +14,7 @@ git clone https://github.com/gabrielfelipeassuncaodesouza/battleship
 * To run the tests write `make test`
 
 Enjoy the application!
+
+### Colaborators
+
+[Mateus Magalhaês](https://github.com/mateus-mglh)
