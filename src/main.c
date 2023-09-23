@@ -38,6 +38,7 @@ int main() {
     pause();
 
     int i = 0;
+
     do {
         clearscr();
         if(i % 2 == 0) {

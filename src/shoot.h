@@ -3,7 +3,15 @@
 
 #include "board.h"
 #include "ships.h"
-#include "human.h"
+
+#define DIRS 4
+
+enum dirs {
+  U = 0,
+  R,
+  D,
+  L
+};
 
 int shoot(element_t board[][TAM], element_t ships[], const char* player);
 int isEmpty(element_t c);
