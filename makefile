@@ -16,9 +16,12 @@ $(PROJ_NAME): $(OBJS)
 
 test: $(OBJS_TEST)
 	$(CC) -o test $(OBJS_TEST) $(CCFLAGS)
-	@ ./test
 
 clear:
-	@ rm -rf *.o $(PROJ_NAME) .*.o ./tests/*.o ./tests/.*.o ./src/*.o ./src/.*.o *~
+	@ rm -rf *.o $(PROJ_NAME) .*.o ./tests/*.o ./tests/.*.o ./src/*.o ./src/.*.o *~ test
+
 run:
 	@ ./battleship
+
+run_test:
+	@ ./test

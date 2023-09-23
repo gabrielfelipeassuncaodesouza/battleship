@@ -32,7 +32,7 @@ int main() {
 
     clearscr();
     printf("Your board is here:\n\n");
-    debugRender(playerBoard);
+    boardRender(playerBoard);
 
     putchar('\n');
     pause();
@@ -45,7 +45,7 @@ int main() {
             if(shoot(iaBoard, ships, "player") == 1) {
                 iaShips--;
             }
-            debugRender(iaBoard);
+            enemyRender(iaBoard);
             printf("\nNavios derrubados: %d\n\n", SHIPS-iaShips);
         }
         else {
@@ -53,7 +53,7 @@ int main() {
             if(shoot(playerBoard, ships, "ia") == 1) {
                 playerShips--;
             }
-            debugRender(playerBoard);
+            boardRender(playerBoard);
             printf("\nNavios derrubados: %d\n\n", SHIPS-playerShips);
         }
 

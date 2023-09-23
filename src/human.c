@@ -1,4 +1,5 @@
 #include "board.h"
+#include "render.h"
 #include "ships.h"
 #include "human.h"
 #include "shoot.h"
@@ -39,7 +40,8 @@ chute_t humanShoot(element_t board[][TAM]) {
   chute_t chute;
 
   while(1) {
-    printf("Digite as coordenadas do chute: ");
+    enemyRender(board);
+    printf("\nDigite as coordenadas do chute: ");
     scanf("%s", buf);
     while(getchar() != '\n');
 

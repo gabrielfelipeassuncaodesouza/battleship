@@ -111,7 +111,7 @@ void putShips(element_t board[][TAM], element_t ships[SHIPS], const char* who) {
         if(strcmp(who, "player") == 0) {
           clearscr();
           printf("\nCurrent board:\n\n");
-          debugRender(board);
+          boardRender(board);
         }
 
         chute_t c;
