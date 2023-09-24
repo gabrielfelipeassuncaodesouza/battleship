@@ -1,5 +1,14 @@
 # Battleship game
 
+<br>
+
+<div align="center">
+ <img alt="position_gif" src="assets/position.gif">
+</div>
+
+***
+## Description
+
 This game was created to complement the final grade of subject Programming I at Computer Science Course at UNIFAP
 
 ## How to run?
