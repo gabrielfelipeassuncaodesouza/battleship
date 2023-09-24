@@ -9,7 +9,7 @@
 ***
 ## Description
 
-This game was created as a complement note to get the marks of the subject Programming I in the Computer Science Course at UNIFAP
+This game was created as a complement work to get the marks of the subject Programming I in the Computer Science Course at UNIFAP
 
 ## Languages and Frameworks
 
