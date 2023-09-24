@@ -2,6 +2,8 @@
 *.out
 *.exe
 
+.vscode
+
 main
 battleship.exe
 battleship
