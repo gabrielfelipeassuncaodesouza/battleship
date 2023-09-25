@@ -11,7 +11,7 @@ chute_t iaChute(element_t board[][TAM], chute_t neighbours[], int i, int hitted)
   int tries = 0;
 
   do {
-    if(tries >= 40) hitted = 0;
+    if(tries >= 4) hitted = 0;
 
     if(!hitted) {
       chute.x = rand() % TAM;
