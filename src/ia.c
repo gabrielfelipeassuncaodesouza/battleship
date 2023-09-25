@@ -13,7 +13,7 @@ chute_t iaChute(element_t board[][TAM], chute_t lastHit, int lastDir, int hitted
     lastDir = (lastDir + 1) % DIRS;
   }
 
-  if(tries == 4) {
+  if(tries >= 4) {
     hitted = 0;
   }
 
