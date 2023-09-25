@@ -4,7 +4,7 @@
 #include "ships.h"
 #include "board.h"
 
-chute_t iaChute(element_t board[][TAM], chute_t lastHit, int lastDir, int hitted); 
-chute_t huntAndTarget(element_t board[][TAM], chute_t lastHit, int lastDir); 
+chute_t iaChute(element_t board[][TAM], chute_t* neighbours, int i, int hitted);
+chute_t* getNeighbours(element_t board[][TAM], chute_t pos);
 
 #endif
