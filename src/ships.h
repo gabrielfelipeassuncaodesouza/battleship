@@ -19,4 +19,6 @@ typedef struct {
 #define TANKER      (element_t){4, 'T', 'H' }
 #define AIRCRAFT    (element_t){5, 'A', 'H' }
 
+#define PASS        (element_t){1, 'P', 'N' }
+
 #endif

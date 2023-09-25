@@ -9,10 +9,14 @@
 #include <string.h>
 
 int isPositionShooted(element_t c) {
+    if(isEqual(c, PASS)) return 1;
+    
     return isEqual(c, ERROR) || isEqual(c, ASSERT);
 }
 
 element_t coordinates(element_t board[][TAM], chute_t c) {
+  if(c.x == -1 && c.y == -1) return PASS;
+
   return board[c.x][c.y];
 }
 
@@ -59,9 +63,9 @@ int shoot(element_t board[][TAM], element_t ships[], const char* player) {
   static int i = 0;
   static int hitted = 0;
 
-  if(!i) getNeighbours(board, neigh, lastHit);
-
   if(strcmp(player, "ia") == 0) { 
+    if(!i) getNeighbours(board, neigh, lastHit);
+
     s = iaChute(board, neigh, i, hitted);
   }
   else {
@@ -75,9 +79,7 @@ int shoot(element_t board[][TAM], element_t ships[], const char* player) {
     assign(&board[s.x][s.y], ERROR);
 
     if(strcmp(player, "ia") == 0) {
-      i++;
-
-      if(i > 3) i = 0;
+      i = (i+1) % 4;
     }
   }
   else {
@@ -92,9 +94,12 @@ int shoot(element_t board[][TAM], element_t ships[], const char* player) {
     }
 
     if(isShipDestroyed(board, ships, result, s)) {
-      hitted = 0;
+      if(strcmp(player, "ia") == 0) {
+        hitted = 0;
+        lastHit = (chute_t){ 0, 0 };
+      }
       return 1;
     }
   }
-    return 0;
+  return 0;
 }
