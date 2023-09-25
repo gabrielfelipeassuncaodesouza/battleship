@@ -66,9 +66,7 @@ chute_t playerPut(int xlimit, int ylimit) {
     if(c.x >= xlimit || c.y >= ylimit) {
       printf("\nInvalid\n");
     }
-    else {
-      break;
-    }
+    else break;
   }
 
   return c;

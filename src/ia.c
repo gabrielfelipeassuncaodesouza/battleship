@@ -26,27 +26,9 @@ chute_t iaChute(element_t board[][TAM], chute_t* neighbours, int i, int hitted) 
   return chute;
 }
 
-chute_t* getNeighbours(element_t board[][TAM], chute_t pos) {
-  chute_t* neigh = (chute_t*)malloc(sizeof(chute_t) * 4);
-
-  int i = 0;
-
-  if(pos.x + 1 < TAM) {
-    neigh[i++] = (chute_t){ pos.x+1, pos.y};
-  }
-  if(pos.x - 1 > 0) {
-    neigh[i++] = (chute_t){ pos.x-1, pos.y};
-  }
-  if(pos.y + 1 < TAM) {
-    neigh[i++] = (chute_t){ pos.x, pos.y+1};
-  }
-  if(pos.y - 1 > 0) {
-    neigh[i++] = (chute_t){ pos.x, pos.y-1};
-  }
-
-  while(i < 3) {
-    neigh[i++] = (chute_t){ rand() % TAM, rand() % TAM };
-  }
-
-  return neigh;
+void getNeighbours(element_t board[][TAM], chute_t neigh[], chute_t pos) {
+  neigh[0] = (chute_t){ pos.x, ((pos.y+1) % TAM) };
+  neigh[1] = (chute_t){ ((pos.x+1) % TAM), pos.y };
+  neigh[2] = (chute_t){ pos.x, abs(pos.y-1)};
+  neigh[3] = (chute_t){ abs(pos.x-1), pos.y};
 }

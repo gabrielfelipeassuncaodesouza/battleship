@@ -55,11 +55,14 @@ int shoot(element_t board[][TAM], element_t ships[], const char* player) {
   chute_t s;
 
   static chute_t lastHit = (chute_t){0, 0}; 
+  static chute_t neigh[4];
   static int i = 0;
   static int hitted = 0;
 
+  if(!i) getNeighbours(board, neigh, lastHit);
+
   if(strcmp(player, "ia") == 0) { 
-    s = iaChute(board, getNeighbours(board, lastHit), i, hitted);
+    s = iaChute(board, neigh, i, hitted);
   }
   else {
     s = humanShoot(board);
@@ -84,6 +87,7 @@ int shoot(element_t board[][TAM], element_t ships[], const char* player) {
     if(strcmp(player, "ia") == 0) {
       hitted = 1;
       lastHit = s;
+      getNeighbours(board, neigh, lastHit);
       i = 0;
     }
 
