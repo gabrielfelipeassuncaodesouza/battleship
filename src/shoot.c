@@ -1,10 +1,6 @@
 #include "board.h"
 #include "human.h"
 #include "ia.h"
-#include "queue.h"
-
-#include "render.h"
-
 #include "ships.h"
 #include "shoot.h"
 
@@ -14,12 +10,12 @@
 
 int isPositionShooted(element_t c) {
     if(isEqual(c, PASS)) return 1;
-
+    
     return isEqual(c, ERROR) || isEqual(c, ASSERT);
 }
 
 element_t coordinates(element_t board[][TAM], chute_t c) {
-  if((c.x == -1 || c.y == -1)) return PASS;
+  if(c.x == -1 && c.y == -1) return PASS;
 
   return board[c.x][c.y];
 }
@@ -60,20 +56,15 @@ int isShipDestroyed(element_t board[][TAM], element_t ships[], element_t e, chut
 }
 
 int shoot(element_t board[][TAM], element_t ships[], const char* player) {
-  chute_t s; //variable that guards the guess
+  chute_t s;
 
-  static queue_t* lastHits = NULL; //queueu that storages the positions hitted to look for around them
-  static queue_t* tail = NULL; //auxiliar pointer of the queue
-
-  static chute_t neigh[4]; //neighbours of position shooted
-  static int i = 0; //i it's the flag that indicates which position around the hit the ia is guessing
-  static int i_lim = 4; //limit of neighbours dependending of the valid positions
-  static int hitted = 0; //verify if hitted a position
+  static chute_t lastHit = (chute_t){0, 0}; 
+  static chute_t neigh[4];
+  static int i = 0;
+  static int hitted = 0;
 
   if(strcmp(player, "ia") == 0) { 
-    if(!i) { //first execution 
-      i_lim = getNeighbours(board, neigh, lastHits);
-    }
+    if(!i) getNeighbours(board, neigh, lastHit);
 
     s = iaChute(board, neigh, i, hitted);
   }
@@ -88,28 +79,25 @@ int shoot(element_t board[][TAM], element_t ships[], const char* player) {
     assign(&board[s.x][s.y], ERROR);
 
     if(strcmp(player, "ia") == 0) {
-      i++; //increment the pos;
-      if(i == i_lim) {
-        i = 0;
-        rem(&lastHits);
-        printf("You have hitted all around the hit\n");
-        pause();
-      }
+      i = (i+1) % 4;
     }
   }
-    
   else {
-    printf("\nBOMBA EM %d %d!!\n\n", s.x, s.y);
+    printf("\nBOMBA!!\n\n");
     assign(&board[s.x][s.y], ASSERT); 
   
     if(strcmp(player, "ia") == 0) {
       hitted = 1;
-      add(&lastHits, &tail, s);
-      i_lim = getNeighbours(board, neigh, lastHits);
+      lastHit = s;
+      getNeighbours(board, neigh, lastHit);
       i = 0;
     }
 
     if(isShipDestroyed(board, ships, result, s)) {
+      if(strcmp(player, "ia") == 0) {
+        hitted = 0;
+        lastHit = (chute_t){ 0, 0 };
+      }
       return 1;
     }
   }
