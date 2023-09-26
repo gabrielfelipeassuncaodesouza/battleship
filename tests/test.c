@@ -81,8 +81,24 @@ MU_TEST(test_adding_on_queue) {
   mu_assert_int_eq(head->hit.y, 0);
 }
 
+MU_TEST(test_removing_on_queue) {
+  queue_t *head = NULL;
+  queue_t *tail = NULL;
+
+  add(&head, &tail, (chute_t){1, 0});
+  add(&head, &tail, (chute_t){12, -2});
+  add(&head, &tail, (chute_t){4, 2});
+  add(&head, &tail, (chute_t){6, 7});
+
+  rem(&head);
+
+  mu_assert_int_eq(head->hit.x, 12);
+  mu_assert_int_eq(head->hit.y, -2);
+}
+
 MU_TEST_SUITE(test_queue_functionality) {
   MU_RUN_TEST(test_adding_on_queue);
+  MU_RUN_TEST(test_removing_on_queue);
 }
 
 int main() {
