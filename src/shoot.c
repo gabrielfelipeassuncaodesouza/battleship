@@ -2,6 +2,9 @@
 #include "human.h"
 #include "ia.h"
 #include "queue.h"
+
+#include "render.h"
+
 #include "ships.h"
 #include "shoot.h"
 
@@ -57,17 +60,20 @@ int isShipDestroyed(element_t board[][TAM], element_t ships[], element_t e, chut
 }
 
 int shoot(element_t board[][TAM], element_t ships[], const char* player) {
-  chute_t s;
+  chute_t s; //variable that guards the guess
 
-  static queue_t* lastHits = NULL;
-  static queue_t* tail = NULL;
+  static queue_t* lastHits = NULL; //queueu that storages the positions hitted to look for around them
+  static queue_t* tail = NULL; //auxiliar pointer of the queue
 
-  static chute_t neigh[4];
-  static int i = 0;
-  static int hitted = 0;
+  static chute_t neigh[4]; //neighbours of position shooted
+  static int i = 0; //i it's the flag that indicates which position around the hit the ia is guessing
+  static int i_lim = 4; //limit of neighbours dependending of the valid positions
+  static int hitted = 0; //verify if hitted a position
 
   if(strcmp(player, "ia") == 0) { 
-    if(!i) getNeighbours(board, neigh, lastHits);
+    if(!i) { //first execution 
+      i_lim = getNeighbours(board, neigh, lastHits);
+    }
 
     s = iaChute(board, neigh, i, hitted);
   }
@@ -82,9 +88,14 @@ int shoot(element_t board[][TAM], element_t ships[], const char* player) {
     assign(&board[s.x][s.y], ERROR);
 
     if(strcmp(player, "ia") == 0) {
-      i = (i+1) % 4;
+      i++; //increment the pos;
+      if(i == i_lim) {
+        printf("You have hitted all around the hit\n");
+        pause();
+      }
     }
   }
+    
   else {
     printf("\nBOMBA!!\n\n");
     assign(&board[s.x][s.y], ASSERT); 
@@ -93,7 +104,7 @@ int shoot(element_t board[][TAM], element_t ships[], const char* player) {
       hitted = 1;
       rem(&lastHits);
       add(&lastHits, &tail, s);
-      getNeighbours(board, neigh, lastHits);
+      i_lim = getNeighbours(board, neigh, lastHits);
       i = 0;
     }
 
