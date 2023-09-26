@@ -14,12 +14,12 @@
 
 int isPositionShooted(element_t c) {
     if(isEqual(c, PASS)) return 1;
-    
+
     return isEqual(c, ERROR) || isEqual(c, ASSERT);
 }
 
 element_t coordinates(element_t board[][TAM], chute_t c) {
-  if(c.x == -1 && c.y == -1) return PASS;
+  if((c.x == -1 || c.y == -1)) return PASS;
 
   return board[c.x][c.y];
 }
@@ -90,6 +90,8 @@ int shoot(element_t board[][TAM], element_t ships[], const char* player) {
     if(strcmp(player, "ia") == 0) {
       i++; //increment the pos;
       if(i == i_lim) {
+        i = 0;
+        rem(&lastHits);
         printf("You have hitted all around the hit\n");
         pause();
       }
@@ -97,22 +99,17 @@ int shoot(element_t board[][TAM], element_t ships[], const char* player) {
   }
     
   else {
-    printf("\nBOMBA!!\n\n");
+    printf("\nBOMBA EM %d %d!!\n\n", s.x, s.y);
     assign(&board[s.x][s.y], ASSERT); 
   
     if(strcmp(player, "ia") == 0) {
       hitted = 1;
-      rem(&lastHits);
       add(&lastHits, &tail, s);
       i_lim = getNeighbours(board, neigh, lastHits);
       i = 0;
     }
 
     if(isShipDestroyed(board, ships, result, s)) {
-      if(strcmp(player, "ia") == 0) {
-        hitted = 0;
-        lastHits = NULL;
-      }
       return 1;
     }
   }
