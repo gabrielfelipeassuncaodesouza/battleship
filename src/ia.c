@@ -26,7 +26,16 @@ chute_t iaChute(element_t board[][TAM], chute_t neighbours[], int i, int hitted)
   return chute;
 }
 
-void getNeighbours(element_t board[][TAM], chute_t neigh[], chute_t pos) {
+void getNeighbours(element_t board[][TAM], chute_t neigh[], queue_t* head) {
+
+  chute_t pos;
+
+  if(head == NULL) {
+    pos = (chute_t){0, 0};
+  }
+  else {
+    pos = head->hit;
+  }
 
   neigh[0] = (chute_t){ pos.x, pos.y+1 };
   neigh[1] = (chute_t){ pos.x+1, pos.y };

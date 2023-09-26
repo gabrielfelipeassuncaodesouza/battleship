@@ -1,6 +1,7 @@
 #include "board.h"
 #include "human.h"
 #include "ia.h"
+#include "queue.h"
 #include "ships.h"
 #include "shoot.h"
 
@@ -58,13 +59,15 @@ int isShipDestroyed(element_t board[][TAM], element_t ships[], element_t e, chut
 int shoot(element_t board[][TAM], element_t ships[], const char* player) {
   chute_t s;
 
-  static chute_t lastHit = (chute_t){0, 0}; 
+  static queue_t* lastHits = NULL;
+  static queue_t* tail = NULL;
+
   static chute_t neigh[4];
   static int i = 0;
   static int hitted = 0;
 
   if(strcmp(player, "ia") == 0) { 
-    if(!i) getNeighbours(board, neigh, lastHit);
+    if(!i) getNeighbours(board, neigh, lastHits);
 
     s = iaChute(board, neigh, i, hitted);
   }
@@ -88,15 +91,15 @@ int shoot(element_t board[][TAM], element_t ships[], const char* player) {
   
     if(strcmp(player, "ia") == 0) {
       hitted = 1;
-      lastHit = s;
-      getNeighbours(board, neigh, lastHit);
+      add(&lastHits, &tail, s);
+      getNeighbours(board, neigh, lastHits);
       i = 0;
     }
 
     if(isShipDestroyed(board, ships, result, s)) {
       if(strcmp(player, "ia") == 0) {
         hitted = 0;
-        lastHit = (chute_t){ 0, 0 };
+        lastHits = NULL;
       }
       return 1;
     }
