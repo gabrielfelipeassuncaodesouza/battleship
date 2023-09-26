@@ -91,6 +91,7 @@ int shoot(element_t board[][TAM], element_t ships[], const char* player) {
   
     if(strcmp(player, "ia") == 0) {
       hitted = 1;
+      rem(&lastHits);
       add(&lastHits, &tail, s);
       getNeighbours(board, neigh, lastHits);
       i = 0;

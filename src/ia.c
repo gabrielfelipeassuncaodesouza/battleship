@@ -19,7 +19,8 @@ chute_t iaChute(element_t board[][TAM], chute_t neighbours[], int i, int hitted)
     }
     else {
       tries++;
-      chute = neighbours[i++];
+      chute = neighbours[i];
+      i = (i+1) % 4;
     }
   } while(isPositionShooted(coordinates(board, chute)));
 
