@@ -14,20 +14,23 @@
 #include <string.h>
 #include <time.h>
 
-//TODO: Improve IA
+#define PLAYER_TURN 0
+#define IA_TURN     1
 
 int main() {
     srand(time(NULL));
 
     element_t playerBoard[TAM][TAM];
     element_t iaBoard[TAM][TAM];
-    initBoard(playerBoard, sizeof(playerBoard));
-    initBoard(iaBoard, sizeof(iaBoard));
+
+    initBoard(playerBoard, sizeof(playerBoard)); //sets all the squares of the board to water
+    initBoard(iaBoard, sizeof(iaBoard)); //the same thing from above
 
     element_t ships[] = { AIRCRAFT, TANKER, TANKER, DESTROYER, DESTROYER, SUBMARIN, SUBMARIN, SUBMARIN };
 
     printHeader();
 
+    /** Asks for the name of the player **/
     char playerName[100];
     printf("Digite seu nome: ");
     fgets(playerName, 100, stdin);
@@ -46,29 +49,33 @@ int main() {
     putchar('\n');
     pause();
 
-    int i = 0;
+    int turn = PLAYER_TURN;
+    int ret;
 
     do {
         clearscr();
-        if(i % 2 == 0) {
+        if(turn == PLAYER_TURN) {
             printf("\nSua vez, %s!\n\n", playerName);
-            if(shoot(iaBoard, ships, "player") == 1) {
-                iaShips--;
+
+            if((ret = shoot(iaBoard, ships, "player")) >= 1) {
+                if(ret == 2) iaShips--;
             }
+            else turn = IA_TURN;
+
             enemyRender(iaBoard);
             printf("\nNavios derrubados: %d\n\n", SHIPS-iaShips);
         }
         else {
             printf("\nVez da IA\n\n");
-            if(shoot(playerBoard, ships, "ia") == 1) {
-                playerShips--;
+            if((ret = shoot(playerBoard, ships, "ia")) >= 1) {
+                if(ret == 2) playerShips--;
             }
+            else turn = PLAYER_TURN;
+
             boardRender(playerBoard);
             printf("\nNavios derrubados: %d\n\n", SHIPS-playerShips);
         }
-
-        i++;
-        getchar();
+        pause();
     } while(iaShips > 0 && playerShips > 0);
 
     printf("O Ganhador foi %s\n", (playerShips == 0) ? "IA" : playerName);

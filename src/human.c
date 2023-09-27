@@ -63,7 +63,7 @@ chute_t humanShoot(element_t board[][TAM]) {
     while(getchar() != '\n');
 
     if(!isFormatValid(buf)) {
-      printf("Coordenada inválida!\n");
+      printf("\nCoordenada inválida!\n");
       continue;
     }
     chute = strToChute(buf);

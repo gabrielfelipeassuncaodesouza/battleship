@@ -78,7 +78,6 @@ int shoot(element_t board[][TAM], element_t ships[], const char* player) {
     assign(&board[s.x][s.y], ASSERT); 
   
     if(strcmp(player, "ia") == 0) {
-      add(&lastHits, &tail, s);
       getNeighbours(board, &lastHits, &tail, s);
     }
   
@@ -87,8 +86,9 @@ int shoot(element_t board[][TAM], element_t ships[], const char* player) {
       while(lastHits != NULL)
         rem(&lastHits);
 
-      return 1;
+      return 2;
     }
+    return 1;
   }
   return 0;
 }
