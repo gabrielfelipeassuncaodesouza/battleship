@@ -24,8 +24,16 @@ chute_t iaChute(element_t board[][TAM], queue_t** hits) {
 }
 
 void getNeighbours(element_t board[][TAM], queue_t** hits, queue_t** tail, chute_t pos) {
-  add(hits, tail, (chute_t){ pos.x, pos.y+1 });
-  add(hits, tail, (chute_t){ pos.x+1, pos.y });
-  add(hits, tail, (chute_t){ pos.x, pos.y-1 });
-  add(hits, tail, (chute_t){ pos.x-1, pos.y }); 
+
+  if(pos.y < TAM - 1)
+    add(hits, tail, (chute_t){ pos.x, pos.y+1 });
+  
+  if(pos.x < TAM - 1)
+    add(hits, tail, (chute_t){ pos.x+1, pos.y });
+  
+  if(pos.y > 0)
+    add(hits, tail, (chute_t){ pos.x, pos.y-1 });
+  
+  if(pos.x > 0)
+    add(hits, tail, (chute_t){ pos.x-1, pos.y }); 
 }

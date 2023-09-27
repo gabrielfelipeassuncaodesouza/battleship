@@ -83,6 +83,10 @@ int shoot(element_t board[][TAM], element_t ships[], const char* player) {
     }
   
     if(isShipDestroyed(board, ships, result, s)) {
+      
+      while(lastHits != NULL)
+        rem(&lastHits);
+
       return 1;
     }
   }
