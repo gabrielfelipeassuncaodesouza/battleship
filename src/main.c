@@ -1,6 +1,7 @@
 /** header files of other archives **/
 
 #include "board.h"
+#include "header.h"
 #include "ships.h"
 #include "human.h"
 #include "render.h"
@@ -23,6 +24,8 @@ int main() {
     initBoard(iaBoard, sizeof(iaBoard));
 
     element_t ships[] = { AIRCRAFT, TANKER, TANKER, DESTROYER, DESTROYER, SUBMARIN, SUBMARIN, SUBMARIN };
+
+    printHeader();
 
     putShips(playerBoard, ships, "player");
     putShips(iaBoard, ships, "ia");

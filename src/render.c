@@ -11,7 +11,7 @@ void clearscr() {
 }
 
 void pause() {
-  printf("Press any key to continue... ");
+  printf("Press enter to continue... ");
   getchar();
 }
 
