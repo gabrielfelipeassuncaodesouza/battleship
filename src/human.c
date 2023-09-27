@@ -35,6 +35,23 @@ chute_t strToChute(char buf[4]) { //convert the move to a valid move struct
   return c;
 }
 
+char playerDir(void) {
+  char dir;
+
+  while(1) {
+    printf("\nType the direction of the ship (H = Horizontal V = Vertical): ");
+    scanf("%c", &dir);
+    while(getchar() != '\n');
+
+    if(toupper(dir) != 'H' && toupper(dir) != 'V') {
+      printf("\nInvalid orient\n");
+      continue;
+    }
+    else break;
+  }
+  return toupper(dir);
+}
+
 chute_t humanShoot(element_t board[][TAM]) {
   char buf[4];
   chute_t chute;

@@ -72,23 +72,6 @@ chute_t playerPut(int xlimit, int ylimit) {
   return c;
 }
 
-char playerDir() {
-  char dir;
-
-  while(1) {
-    printf("\nType the direction of the ship (H = Horizontal V = Vertical): ");
-    scanf("%c", &dir);
-    while(getchar() != '\n');
-
-    if(toupper(dir) != 'H' && toupper(dir) != 'V') {
-      printf("\nInvalid orient\n");
-      continue;
-    }
-    else break;
-  }
-  return toupper(dir);
-}
-
 chute_t iaPut(int xlimit, int ylimit) {
   chute_t c;
   c.x = rand() % xlimit;
@@ -101,6 +84,21 @@ char iaDir() {
   return ((rand() % 2 == 0) ? 'H' : 'V');
 }
 
+void printNameOfShip(element_t ship) {
+  if(isEqual(ship, AIRCRAFT)) {
+    printf("\nPosicione seu porta aviões\n");
+  }
+  else if(isEqual(ship, TANKER)) {
+    printf("\nPosicione seus dois Navios-tanque\n");
+  }
+  else if(isEqual(ship, DESTROYER)) {
+    printf("\nPosicione seus dois Contratorpedeiros\n");
+  }
+  else if(isEqual(ship, SUBMARIN)) {
+    printf("\nPosicione seus três submarinos\n");
+  }
+}
+
 void putShips(element_t board[][TAM], element_t ships[SHIPS], const char* who) {
     for (int i = 0; i < SHIPS; i++) {
         int length = ships[i].tam;
@@ -110,6 +108,8 @@ void putShips(element_t board[][TAM], element_t ships[SHIPS], const char* who) {
           clearscr();
           printf("\nCurrent board:\n\n");
           boardRender(board);
+
+          printNameOfShip(ships[i]);
         }
 
         chute_t c;

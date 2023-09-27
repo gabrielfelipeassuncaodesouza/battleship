@@ -6,5 +6,6 @@
 int isFormatValid(char shoot[3]);
 chute_t humanShoot(element_t board[][TAM]);
 chute_t strToChute(char buf[4]);
+char playerDir(void);
 
 #endif

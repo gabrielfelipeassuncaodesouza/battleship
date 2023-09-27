@@ -14,6 +14,7 @@ void printHeader(void) {
   printf("██████╔╝██║  ██║   ██║      ██║   ███████╗███████╗███████║██║  ██║██║██║      \n"); 
   printf("╚═════╝ ╚═╝  ╚═╝   ╚═╝      ╚═╝   ╚══════╝╚══════╝╚══════╝╚═╝  ╚═╝╚═╝╚═╝      \n");
 
+  printf("\n\nBem vindo ao jogo!!\n\n");
   pause();
   //printf("\n\nSelecione uma das opções: \n");
   //printf("1 - Jogar\n");                                               
