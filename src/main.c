@@ -11,6 +11,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include <time.h>
 
 //TODO: Improve IA
@@ -26,6 +27,11 @@ int main() {
     element_t ships[] = { AIRCRAFT, TANKER, TANKER, DESTROYER, DESTROYER, SUBMARIN, SUBMARIN, SUBMARIN };
 
     printHeader();
+
+    char playerName[100];
+    printf("Digite seu nome: ");
+    fgets(playerName, 100, stdin);
+    playerName[strcspn(playerName, "\n")] = '\0';
 
     putShips(playerBoard, ships, "player");
     putShips(iaBoard, ships, "ia");
@@ -45,7 +51,7 @@ int main() {
     do {
         clearscr();
         if(i % 2 == 0) {
-            printf("\nVez do player\n\n");
+            printf("\nSua vez, %s!\n\n", playerName);
             if(shoot(iaBoard, ships, "player") == 1) {
                 iaShips--;
             }
@@ -65,5 +71,5 @@ int main() {
         getchar();
     } while(iaShips > 0 && playerShips > 0);
 
-    printf("O Ganhador foi %s\n", (playerShips == 0) ? "IA" : "Player");
+    printf("O Ganhador foi %s\n", (playerShips == 0) ? "IA" : playerName);
 }

@@ -70,5 +70,7 @@ chute_t humanShoot(element_t board[][TAM]) {
 
     if(!isPositionShooted(coordinates(board, chute))) break;
   }
+
+  clearscr();
   return chute;
 }
