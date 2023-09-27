@@ -3,11 +3,12 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+#include "ships.h"
 
-void add(queue_t** head, queue_t** tail, int num) {
+void add(queue_t** head, queue_t** tail, chute_t s) {
     queue_t* new = (queue_t*)malloc(sizeof(queue_t));
 
-    new->num = num;
+    new->hit = s;
     new->next = NULL;
 
     if(*head == NULL) {
