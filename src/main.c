@@ -14,9 +14,6 @@
 #include <string.h>
 #include <time.h>
 
-#define PLAYER_TURN 0
-#define IA_TURN     1
-
 int main() {
     srand(time(NULL));
 
@@ -32,18 +29,18 @@ int main() {
 
     /** Asks for the name of the player **/
     char playerName[100];
-    printf("Digite seu nome: ");
+    printf("\tDigite seu nome: ");
     fgets(playerName, 100, stdin);
     playerName[strcspn(playerName, "\n")] = '\0';
 
-    putShips(playerBoard, ships, "player");
-    putShips(iaBoard, ships, "ia");
+    putShips(playerBoard, ships, PLAYER_TURN);
+    putShips(iaBoard, ships, IA_TURN);
 
     int playerShips = SHIPS;
     int iaShips = SHIPS;
 
     clearscr();
-    printf("Your board is here:\n\n");
+    printf("\n\t\tYour board is here:\n\n");
     boardRender(playerBoard);
 
     putchar('\n');
@@ -54,27 +51,26 @@ int main() {
 
     do {
         clearscr();
-        if(turn == PLAYER_TURN) {
-            printf("\nSua vez, %s!\n\n", playerName);
+        printf("\n\x1b[41m\t\t\t\tPLACAR: %d x %d\n\x1b[m", SHIPS-iaShips, SHIPS-playerShips);
 
-            if((ret = shoot(iaBoard, ships, "player")) >= 1) {
+        if(turn == PLAYER_TURN) {
+            printf("\n\tSua vez, %s!\n\n", playerName);
+
+            if((ret = playerShoot(playerBoard, iaBoard, ships)) >= 1) {
                 if(ret == 2) iaShips--;
             }
             else turn = IA_TURN;
-
-            enemyRender(iaBoard);
-            printf("\nNavios derrubados: %d\n\n", SHIPS-iaShips);
         }
         else {
-            printf("\nVez da IA\n\n");
-            if((ret = shoot(playerBoard, ships, "ia")) >= 1) {
+            printf("\n\tVez da IA\n\n");
+            if((ret = iaShoot(playerBoard, ships)) >= 1) {
                 if(ret == 2) playerShips--;
             }
             else turn = PLAYER_TURN;
-
-            boardRender(playerBoard);
-            printf("\nNavios derrubados: %d\n\n", SHIPS-playerShips);
         }
+        printBothBoards(playerBoard, iaBoard);
+
+        printf("\n\n");
         pause();
     } while(iaShips > 0 && playerShips > 0);
 

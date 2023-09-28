@@ -13,7 +13,8 @@ enum dirs {
   L
 };
 
-int shoot(element_t board[][TAM], element_t ships[], const char* player);
+int iaShoot(element_t player[][TAM], element_t ships[]);
+int playerShoot(element_t player[][TAM], element_t ia[][TAM], element_t ships[]);
 int isEmpty(element_t c);
 element_t coordinates(element_t board[][TAM], chute_t c);
 int isPositionShooted(element_t c); 

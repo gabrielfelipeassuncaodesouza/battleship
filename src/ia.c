@@ -6,6 +6,18 @@
 
 #include <stdlib.h>
 
+chute_t iaPut(int xlimit, int ylimit) {
+  chute_t c;
+  c.x = rand() % xlimit;
+  c.y = rand() % ylimit;
+  
+  return c;
+}
+
+char iaDir() {
+  return ((rand() % 2 == 0) ? 'H' : 'V');
+}
+
 chute_t iaChute(element_t board[][TAM], queue_t** hits) {
   chute_t chute;
 

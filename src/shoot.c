@@ -55,39 +55,51 @@ int isShipDestroyed(element_t board[][TAM], element_t ships[], element_t e, chut
   return 1;
 }
 
-int shoot(element_t board[][TAM], element_t ships[], const char* player) {
+int iaShoot(element_t player[][TAM], element_t ships[]) {
   chute_t s;
   static queue_t* lastHits = NULL; 
   static queue_t* tail = NULL;
 
-  if(strcmp(player, "ia") == 0) {
-    s = iaChute(board, &lastHits);
-  }
-  else {
-    s = humanShoot(board);
-  }
-
-  element_t result = coordinates(board, s);
+  s = iaChute(player, &lastHits);  
+  element_t result = coordinates(player, s);
 
   if(isEqual(result, WATER)) {
-    printf("\nAGUA!!\n\n");
-    assign(&board[s.x][s.y], ERROR);
+    printf("\n\tAGUA!!\n\n");
+    assign(&player[s.x][s.y], ERROR);
   }
   else {
-    printf("\nBOMBA!!\n\n");
-    assign(&board[s.x][s.y], ASSERT); 
+    printf("\n\tBOMBA!!\n\n");
+    assign(&player[s.x][s.y], ASSERT); 
   
-    if(strcmp(player, "ia") == 0) {
-      getNeighbours(board, &lastHits, &tail, s);
-    }
+    getNeighbours(player, &lastHits, &tail, s);
   
-    if(isShipDestroyed(board, ships, result, s)) {
-      
+    if(isShipDestroyed(player, ships, result, s)) {
       while(lastHits != NULL)
         rem(&lastHits);
 
       return 2;
     }
+    return 1;
+  }
+  return 0;
+}
+
+int playerShoot(element_t player[][TAM], element_t ia[][TAM], element_t ships[]) {
+  chute_t s;
+
+  s = humanShoot(player, ia);
+  element_t result = coordinates(player, s);
+
+  if(isEqual(result, WATER)) {
+    printf("\n\tAGUA!!\n\n");
+    assign(&ia[s.x][s.y], ERROR);
+  }
+  else {
+    printf("\n\tBOMBA!!\n\n");
+    assign(&ia[s.x][s.y], ASSERT); 
+  
+    if(isShipDestroyed(ia, ships, result, s)) return 2;
+         
     return 1;
   }
   return 0;

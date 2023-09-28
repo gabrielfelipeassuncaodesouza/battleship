@@ -1,5 +1,6 @@
 #include "board.h"
 #include "human.h"
+#include "ia.h"
 #include "render.h"
 #include "ships.h"
 
@@ -17,14 +18,25 @@ int isEqual(element_t e1, element_t e2) {
 }
 
 int isValid(element_t board[][TAM], element_t e, chute_t c) {
+  int i;
+  int zero = 0;
+        
+  int* incr1;
+  int* incr2;
+
+  if(e.dir == 'H') {
+    incr1 = &zero;
+    incr2 = &i;
+  }
+  else {
+    incr1 = &i;
+    incr2 = &zero;
+  }
+
   //* Refactor this code (it is not eficient)
-  for(int i = 0; i < e.tam; i++) {
-    if(e.dir == 'H' && !isEqual(board[c.x][c.y+i], WATER)) {
-      printf("\nInvalid coordinate\n"); 
-      return 0;
-    }
-    else if(e.dir == 'V' && !isEqual(board[c.x+i][c.y], WATER)) {
-      printf("\nInvalid coordinate\n");
+  for(i = 0; i < e.tam; i++) {
+    if(!isEqual(board[c.x + *incr1][c.y + *incr2], WATER)) {
+      printf("\n\tInvalid coordinate\n"); 
       return 0;
     }
   }
@@ -48,65 +60,29 @@ void initBoard(element_t board[][TAM], size_t size) {
   }
 }
 
-chute_t playerPut(int xlimit, int ylimit) {
-  char buf[4];
-  chute_t c;
-
-  while(1) {
-    printf("\nDigite as coordenadas do navio: ");
-    scanf("%s", buf);
-    while(getchar() != '\n');
-
-    if(!isFormatValid(buf)) {
-      printf("\nCoordenada inválida!\n");
-      continue;
-    }
-
-    c = strToChute(buf);
-    if(c.x >= xlimit || c.y >= ylimit) {
-      printf("\nInvalid\n");
-    }
-    else break;
-  }
-
-  return c;
-}
-
-chute_t iaPut(int xlimit, int ylimit) {
-  chute_t c;
-  c.x = rand() % xlimit;
-  c.y = rand() % ylimit;
-  
-  return c;
-}
-
-char iaDir() {
-  return ((rand() % 2 == 0) ? 'H' : 'V');
-}
-
 void printNameOfShip(element_t ship) {
   if(isEqual(ship, AIRCRAFT)) {
-    printf("\nPosicione seu porta aviões\n");
+    printf("\n\tPosicione seu porta aviões\n");
   }
   else if(isEqual(ship, TANKER)) {
-    printf("\nPosicione seus dois Navios-tanque\n");
+    printf("\n\tPosicione seus dois Navios-tanque\n");
   }
   else if(isEqual(ship, DESTROYER)) {
-    printf("\nPosicione seus dois Contratorpedeiros\n");
+    printf("\n\tPosicione seus dois Contratorpedeiros\n");
   }
   else if(isEqual(ship, SUBMARIN)) {
-    printf("\nPosicione seus três submarinos\n");
+    printf("\n\tPosicione seus três submarinos\n");
   }
 }
 
-void putShips(element_t board[][TAM], element_t ships[SHIPS], const char* who) {
+void putShips(element_t board[][TAM], element_t ships[SHIPS], int who) {
     for (int i = 0; i < SHIPS; i++) {
         int length = ships[i].tam;
         char orient = 'N';
 
-        if(strcmp(who, "player") == 0) {
+        if(who == PLAYER_TURN) {
           clearscr();
-          printf("\nCurrent board:\n\n");
+          printf("\n\t\tCurrent board:\n\n");
           boardRender(board);
 
           printNameOfShip(ships[i]);
@@ -117,10 +93,15 @@ void putShips(element_t board[][TAM], element_t ships[SHIPS], const char* who) {
 
         do {
           if(length > 1) {
-            if(strcmp(who, "ia") == 0)
+            if(who == IA_TURN)
               orient = iaDir();
             else {
               orient = playerDir();
+
+              if(orient == 'R') {
+                orient = iaDir();
+                who = IA_TURN;
+              }
             }
           }
 
@@ -133,27 +114,29 @@ void putShips(element_t board[][TAM], element_t ships[SHIPS], const char* who) {
             xlimit = TAM - length + 1;
           }
 
-          if(strcmp(who, "ia") == 0) {
+          if(who == IA_TURN) {
             c = iaPut(xlimit, ylimit);
           } else {
             c = playerPut(xlimit, ylimit);
           }
         } while(!isValid(board, ships[i], c));
 
-        //* Improve and refactor this function (it is not eficient)
-        for(int j = 0; j < ships[i].tam; j++) {
-            if(ships[i].dir == 'H') {
-              assign(&board[c.x][c.y+j], (element_t){ length, ships[i].type, ships[i].dir });
-            } else {
-              assign(&board[c.x+j][c.y], (element_t){ length, ships[i].type, ships[i].dir });
-            }
+        int zero = 0;
+        int j;
+        int* incr1;
+        int* incr2;
 
-            length--;
+        if(ships[i].dir == 'H') {
+          incr1 = &zero;
+          incr2 = &j;
+        }
+        else {
+          incr1 = &j;
+          incr2 = &zero;
         }
 
-        if(strcmp(who, "player") == 0) {
-          printf("\nShip putted succesfully\n\n");
-          pause();
+        for(j = 0; j < ships[i].tam; j++) {
+          assign(&board[c.x + *incr1][c.y + *incr2], (element_t){ length--, ships[i].type, ships[i].dir });
         }
     }
 }
