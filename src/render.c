@@ -15,7 +15,9 @@ void pause() {
   getchar();
 }
 
-void printBothBoards(element_t player[][TAM], element_t ia[][TAM]) {
+void printBothBoards(element_t player[][TAM], element_t ia[][TAM], placar p) {
+  printf("\n\x1b[41m\t\t\t\tPLACAR: %d x %d\n\x1b[m", p.player, p.ia);
+
   printf("\n\t\t");
   for(int i = 1; i <= TAM; i++) printf("%d ", i);
   printf("\t\t");

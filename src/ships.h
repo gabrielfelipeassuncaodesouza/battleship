@@ -14,6 +14,11 @@ typedef struct {
   int y;
 } chute_t;
 
+typedef struct {
+  int player;
+  int ia;
+} placar;
+
 #define SUBMARIN    (element_t){2, 'S', 'N' }
 #define DESTROYER   (element_t){3, 'D', 'H' }
 #define TANKER      (element_t){4, 'T', 'H' }

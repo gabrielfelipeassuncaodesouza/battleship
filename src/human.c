@@ -77,24 +77,27 @@ chute_t playerPut(int xlimit, int ylimit) {
   return c;
 }
 
-chute_t humanShoot(element_t player[][TAM], element_t ia[][TAM]) {
+chute_t humanShoot(element_t player[][TAM], element_t ia[][TAM], placar p) {
   char buf[4];
   chute_t chute;
 
   while(1) {
-    printBothBoards(player, ia);
+    printBothBoards(player, ia, p);
     printf("\n\tDigite as coordenadas do chute: ");
     scanf("%s", buf);
     while(getchar() != '\n');
 
     if(!isFormatValid(buf)) {
-      printf("\n\tCoordenada inválida!\n");
+      clearscr();
+      printf("\n\tCoordenada inválida!\n"); 
       continue;
     }
+
     chute = strToChute(buf);
 
-    if(!isPositionShooted(coordinates(player, chute))) break;
+    if(!isPositionShooted(coordinates(ia, chute))) break;
   }
 
+  clearscr();
   return chute;
 }

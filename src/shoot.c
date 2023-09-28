@@ -1,6 +1,7 @@
 #include "board.h"
 #include "human.h"
 #include "ia.h"
+#include "render.h"
 #include "ships.h"
 #include "shoot.h"
 
@@ -9,14 +10,10 @@
 #include <string.h>
 
 int isPositionShooted(element_t c) {
-    if(isEqual(c, PASS)) return 1;
-    
-    return isEqual(c, ERROR) || isEqual(c, ASSERT);
+  return (isEqual(c, ERROR) || isEqual(c, ASSERT));   
 }
 
 element_t coordinates(element_t board[][TAM], chute_t c) {
-  if(c.x == -1 && c.y == -1) return PASS;
-
   return board[c.x][c.y];
 }
 
@@ -64,11 +61,11 @@ int iaShoot(element_t player[][TAM], element_t ships[]) {
   element_t result = coordinates(player, s);
 
   if(isEqual(result, WATER)) {
-    printf("\n\tAGUA!!\n\n");
+    printf(" ERROU :(\n");
     assign(&player[s.x][s.y], ERROR);
   }
   else {
-    printf("\n\tBOMBA!!\n\n");
+    printf(" ACERTOU :D\n");
     assign(&player[s.x][s.y], ASSERT); 
   
     getNeighbours(player, &lastHits, &tail, s);
@@ -84,22 +81,23 @@ int iaShoot(element_t player[][TAM], element_t ships[]) {
   return 0;
 }
 
-int playerShoot(element_t player[][TAM], element_t ia[][TAM], element_t ships[]) {
+int playerShoot(element_t player[][TAM], element_t ia[][TAM], element_t ships[], placar p) {
   chute_t s;
 
-  s = humanShoot(player, ia);
-  element_t result = coordinates(player, s);
+  s = humanShoot(player, ia, p);
+  element_t result = coordinates(ia, s);
 
   if(isEqual(result, WATER)) {
-    printf("\n\tAGUA!!\n\n");
+    printf("\n\tERROU :(\n");
     assign(&ia[s.x][s.y], ERROR);
   }
   else {
-    printf("\n\tBOMBA!!\n\n");
+    printf("\n\tACERTOU :D\n");
     assign(&ia[s.x][s.y], ASSERT); 
   
-    if(isShipDestroyed(ia, ships, result, s)) return 2;
-         
+    if(isShipDestroyed(ia, ships, result, s)) {
+      return 2;
+    }   
     return 1;
   }
   return 0;

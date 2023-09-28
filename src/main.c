@@ -36,8 +36,7 @@ int main() {
     putShips(playerBoard, ships, PLAYER_TURN);
     putShips(iaBoard, ships, IA_TURN);
 
-    int playerShips = SHIPS;
-    int iaShips = SHIPS;
+    placar placar = { 0, 0 };
 
     clearscr();
     printf("\n\t\tYour board is here:\n\n");
@@ -50,29 +49,27 @@ int main() {
     int ret;
 
     do {
+        ret = 0;
         clearscr();
-        printf("\n\x1b[41m\t\t\t\tPLACAR: %d x %d\n\x1b[m", SHIPS-iaShips, SHIPS-playerShips);
-
         if(turn == PLAYER_TURN) {
-            printf("\n\tSua vez, %s!\n\n", playerName);
-
-            if((ret = playerShoot(playerBoard, iaBoard, ships)) >= 1) {
-                if(ret == 2) iaShips--;
+            printf("\n\tSua vez, %s\n", playerName);
+            if((ret = playerShoot(playerBoard, iaBoard, ships, placar)) >= 1) {
+                if(ret == 2) placar.player++;
             }
             else turn = IA_TURN;
         }
         else {
-            printf("\n\tVez da IA\n\n");
+            printf("\n\tVex da IA: ");
             if((ret = iaShoot(playerBoard, ships)) >= 1) {
-                if(ret == 2) playerShips--;
+                if(ret == 2) placar.ia++;
             }
             else turn = PLAYER_TURN;
         }
-        printBothBoards(playerBoard, iaBoard);
+        printBothBoards(playerBoard, iaBoard, placar);
 
         printf("\n\n");
         pause();
-    } while(iaShips > 0 && playerShips > 0);
+    } while(placar.player < 8 && placar.ia < 8);
 
-    printf("O Ganhador foi %s\n", (playerShips == 0) ? "IA" : playerName);
+    printf("O Ganhador foi %s\n", (placar.ia == 8) ? "IA" : playerName);
 }
