@@ -96,6 +96,10 @@ chute_t humanShoot(element_t player[][TAM], element_t ia[][TAM], placar p) {
     chute = strToChute(buf);
 
     if(!isPositionShooted(coordinates(ia, chute))) break;
+    else {
+      clearscr();
+      printf("\n\tCoordenada inválida\n");
+    }
   }
 
   clearscr();

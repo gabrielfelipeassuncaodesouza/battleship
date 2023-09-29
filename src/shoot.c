@@ -61,11 +61,11 @@ int iaShoot(element_t player[][TAM], element_t ships[]) {
   element_t result = coordinates(player, s);
 
   if(isEqual(result, WATER)) {
-    printf(" ERROU :(\n");
+    printf("\x1b[31m ERROU :(\x1b[m\n");
     assign(&player[s.x][s.y], ERROR);
   }
   else {
-    printf(" ACERTOU :D\n");
+    printf("\x1b[33m ACERTOU :D\x1b[m\n");
     assign(&player[s.x][s.y], ASSERT); 
   
     getNeighbours(player, &lastHits, &tail, s);
@@ -88,11 +88,11 @@ int playerShoot(element_t player[][TAM], element_t ia[][TAM], element_t ships[],
   element_t result = coordinates(ia, s);
 
   if(isEqual(result, WATER)) {
-    printf("\n\tERROU :(\n");
+    printf("\n\x1b[31m\tERROU :(\x1b[m\n");
     assign(&ia[s.x][s.y], ERROR);
   }
   else {
-    printf("\n\tACERTOU :D\n");
+    printf("\n\x1b[33m\tACERTOU :D\x1b[m\n");
     assign(&ia[s.x][s.y], ASSERT); 
   
     if(isShipDestroyed(ia, ships, result, s)) {

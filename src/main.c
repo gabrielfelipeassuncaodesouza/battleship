@@ -13,6 +13,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <time.h>
+#include <unistd.h>
 
 int main() {
     srand(time(NULL));
@@ -43,7 +44,7 @@ int main() {
     boardRender(playerBoard);
 
     putchar('\n');
-    pause();
+    stop();
 
     int turn = PLAYER_TURN;
     int ret;
@@ -59,7 +60,7 @@ int main() {
             else turn = IA_TURN;
         }
         else {
-            printf("\n\tVex da IA: ");
+            printf("\n\tVez da IA: ");
             if((ret = iaShoot(playerBoard, ships)) >= 1) {
                 if(ret == 2) placar.ia++;
             }
@@ -68,8 +69,11 @@ int main() {
         printBothBoards(playerBoard, iaBoard, placar);
 
         printf("\n\n");
-        pause();
+        usleep(1000000);
     } while(placar.player < 8 && placar.ia < 8);
 
-    printf("O Ganhador foi %s\n", (placar.ia == 8) ? "IA" : playerName);
+    if(placar.ia == 8)
+      printLost();
+    else
+      printWin();
 }
