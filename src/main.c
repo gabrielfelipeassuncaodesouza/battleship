@@ -32,7 +32,7 @@ void initGame(void) {
   p = (placar){ 0, 0 };
 
   clearscr();
-  printf("\n\t\tYour board is here:\n\n");
+  printf("\n\t\tAqui esta seu tabuleiro:\n\n");
   boardRender(playerBoard);
 
   putchar('\n');
@@ -56,7 +56,7 @@ void gameLoop(void) {
       else turn = IA_TURN;
     }
     else {
-      printf("\n\tVez da IA: ");
+      printf("\n\tVez da CPU: ");
       if((ret = iaShoot(playerBoard, ships)) >= 1) {
         if(ret == 2) p.ia++;
       }

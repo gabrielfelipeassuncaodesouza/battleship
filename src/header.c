@@ -18,7 +18,7 @@ void printHeader(void) {
   printDelay("\t╚═════╝ ╚═╝  ╚═╝   ╚═╝      ╚═╝   ╚══════╝╚══════╝╚══════╝╚═╝  ╚═╝╚═╝╚═╝      \n", 50);
 
   printf("\n\n");
-  printTypeWriter("\tBem vindo ao jogo!!!\n");
+  printTypeWriter("\tBem-vindo ao jogo!!!\n");
   usleep(500000);                                               
 }
 
@@ -43,7 +43,7 @@ void printLost(void) {
   clearscr();
 
   printf("\x1b[31m");
-  printTypeWriter("\t\tQue pena :,(\n\n\n");
+  printTypeWriter("\t\tQue pena :(\n\n\n");
 
   printDelay("\t▓██   ██▓ ▒█████   █    ██     ██▓     ▒█████    ██████ ▄▄▄█████▓\n", 50);
   printDelay("\t ▒██  ██▒▒██▒  ██▒ ██  ▓██▒   ▓██▒    ▒██▒  ██▒▒██    ▒ ▓  ██▒ ▓▒\n", 50);

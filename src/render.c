@@ -14,7 +14,7 @@ void clearscr() {
 }
 
 void stop() {
-  printf("\tPress enter to continue... ");
+  printf("\tPressione enter para continuar... ");
   getchar();
 }
 
@@ -34,7 +34,7 @@ void printTypeWriter(const char *text) {
 void printBothBoards(element_t player[][TAM], element_t ia[][TAM], placar p) {
   printf("\n\x1b[41m\t\t\t\t\tPLACAR: %d x %d\n\x1b[m", p.player, p.ia);
 
-  printf("\n\t\t\tPlayer\t\t\t\t\t\tIA\n\n\t\t");
+  printf("\n\t\t\tJogador\t\t\t\t\t\tCPU\n\n\t\t");
   for(int i = 1; i <= TAM; i++) printf("%d ", i);
   printf("\t\t\t\t");
   for(int i = 1; i <= TAM; i++) printf("%d ", i);
@@ -76,22 +76,3 @@ void boardRender(element_t board[][TAM]) {
     putchar('\n');
   }
 }
-
-/** Unused function
-void enemyRender(element_t board[][TAM]) {  
-  printf("\n\t\t");
-  for(int i = 1; i <= TAM; i++) printf("%d ", i);
-  printf("\n\n");
-
-  for(int i = 0; i < TAM; i++) {
-    printf("\t%c\t", 'A'+i);
-    for(int j = 0; j < TAM; j++) {
-
-      char * color = (isEqual(board[i][j], ERROR)) ? "\x1b[34m" : (isEqual(board[i][j], ASSERT)) ? "\x1b[31m" : "";
-
-      printf("%s%c\x1b[m ", color, isPositionShooted(board[i][j]) ? board[i][j].type : WATER.type);
-    }
-    putchar('\n');
-  }
-}
-**/

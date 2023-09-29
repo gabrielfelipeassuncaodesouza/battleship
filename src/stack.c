@@ -15,7 +15,5 @@ void add(stack_t** head, chute_t s) {
 void rem(stack_t** head) {
     if(*head == NULL) return;
 
-    //stack_t* aux = *head;
     *head = (*head)->next;
-    //free(aux);
 }

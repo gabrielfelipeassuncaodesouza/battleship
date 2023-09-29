@@ -33,14 +33,12 @@ int isValid(element_t board[][TAM], element_t e, chute_t c) {
     incr2 = &zero;
   }
 
-  //* Refactor this code (it is not eficient)
   for(i = 0; i < e.tam; i++) {
     if(!isEqual(board[c.x + *incr1][c.y + *incr2], WATER)) {
-      printf("\n\tInvalid coordinate\n"); 
+      printf("\n\tCoordenada inválida\n"); 
       return 0;
     }
   }
-
   return 1;
 }
 
@@ -62,13 +60,13 @@ void initBoard(element_t board[][TAM], size_t size) {
 
 void printNameOfShip(element_t ship) {
   if(isEqual(ship, AIRCRAFT)) {
-    printf("\n\tPosicione seu porta aviões\n");
+    printf("\n\tPosicione seu porta-aviões\n");
   }
   else if(isEqual(ship, TANKER)) {
-    printf("\n\tPosicione seus dois Navios-tanque\n");
+    printf("\n\tPosicione seus dois navios-tanque\n");
   }
   else if(isEqual(ship, DESTROYER)) {
-    printf("\n\tPosicione seus dois Contratorpedeiros\n");
+    printf("\n\tPosicione seus dois contratorpedeiros\n");
   }
   else if(isEqual(ship, SUBMARIN)) {
     printf("\n\tPosicione seus três submarinos\n");
@@ -82,7 +80,7 @@ void putShips(element_t board[][TAM], element_t ships[SHIPS], int who) {
 
         if(who == PLAYER_TURN) {
           clearscr();
-          printf("\n\t\tCurrent board:\n\n");
+          printf("\n\t\tTabuleiro atual:\n\n");
           boardRender(board);
 
           printNameOfShip(ships[i]);

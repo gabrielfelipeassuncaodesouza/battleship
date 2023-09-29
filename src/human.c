@@ -40,7 +40,7 @@ char playerDir(void) {
   char dir;
 
   while(1) {
-    printf("\n\tType the direction of the ship (H = Horizontal V = Vertical): \n");
+    printf("\n\tDigite a direção do navio (H = Horizontal V = Vertical): \n");
     printf("\tOu digite r para posicionar todos os navios randomicamente: ");
     scanf("%c", &dir);
     while(getchar() != '\n');
@@ -95,7 +95,7 @@ chute_t humanShoot(element_t player[][TAM], element_t ia[][TAM], placar p) {
 
   while(1) {
     printBothBoards(player, ia, p);
-    printf("\n\tDigite as coordenadas do chute: ");
+    printf("\n\tDigite as coordenadas do tiro: ");
     scanf("%s", buf);
     while(getchar() != '\n');
 
