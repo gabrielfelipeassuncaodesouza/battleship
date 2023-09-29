@@ -29,7 +29,6 @@ void printTypeWriter(const char *text) {
     fflush(stdout);
     usleep(delay*1000);
   }
-  putchar('\n');
 }
 
 void printBothBoards(element_t player[][TAM], element_t ia[][TAM], placar p) {

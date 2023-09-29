@@ -7,6 +7,7 @@
 #include <ctype.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <unistd.h>
 
 int isFormatValid(char shoot[3]) { //check if the move typed by the user is valid
   if(!isalpha(shoot[0]) || !isdigit(shoot[1])) {
@@ -45,7 +46,14 @@ char playerDir(void) {
     while(getchar() != '\n');
 
     if(toupper(dir) != 'H' && toupper(dir) != 'V' && toupper(dir) != 'R') {
-      printf("\n\tInvalid orient\n");
+      printf("\x1b[3A");
+      printf("\x1b[3M");
+
+      printf("\t\x1b[31mOpção inválida\x1b[m\n");
+      usleep(500000);
+      printf("\x1b[1A");
+      printf("\x1b[1M");
+
       continue;
     }
     else break;
@@ -62,14 +70,18 @@ chute_t playerPut(int xlimit, int ylimit) {
     scanf("%s", buf);
     while(getchar() != '\n');
 
-    if(!isFormatValid(buf)) {
-      printf("\n\tCoordenada inválida!\n");
-      continue;
-    }
-
     c = strToChute(buf);
-    if(c.x >= xlimit || c.y >= ylimit) {
-      printf("\n\tInvalid\n");
+
+    if(!isFormatValid(buf) || (c.x >= xlimit || c.y >= ylimit)) {
+      printf("\x1b[2A");
+      printf("\x1b[2M");
+
+      printf("\t\x1b[31mCoordenada inválida\x1b[m\n");
+      usleep(500000);
+      printf("\x1b[1A");
+      printf("\x1b[1M");
+
+      continue;
     }
     else break;
   }

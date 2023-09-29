@@ -4,6 +4,7 @@
 #include "render.h"
 #include "ships.h"
 #include "shoot.h"
+#include "stack.h"
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -54,8 +55,7 @@ int isShipDestroyed(element_t board[][TAM], element_t ships[], element_t e, chut
 
 int iaShoot(element_t player[][TAM], element_t ships[]) {
   chute_t s;
-  static queue_t* lastHits = NULL; 
-  static queue_t* tail = NULL;
+  static stack_t* lastHits = NULL; 
 
   s = iaChute(player, &lastHits);  
   element_t result = coordinates(player, s);
@@ -68,7 +68,7 @@ int iaShoot(element_t player[][TAM], element_t ships[]) {
     printf("\x1b[33m ACERTOU :D\x1b[m\n");
     assign(&player[s.x][s.y], ASSERT); 
   
-    getNeighbours(player, &lastHits, &tail, s);
+    getNeighbours(player, &lastHits, s);
   
     if(isShipDestroyed(player, ships, result, s)) {
       while(lastHits != NULL)

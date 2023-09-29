@@ -1,6 +1,6 @@
 #include "board.h"
 #include "ia.h"
-#include "queue.h"
+#include "stack.h"
 #include "ships.h"
 #include "shoot.h"
 
@@ -18,7 +18,7 @@ char iaDir() {
   return ((rand() % 2 == 0) ? 'H' : 'V');
 }
 
-chute_t iaChute(element_t board[][TAM], queue_t** hits) {
+chute_t iaChute(element_t board[][TAM], stack_t** hits) {
   chute_t chute;
 
   do {
@@ -35,16 +35,16 @@ chute_t iaChute(element_t board[][TAM], queue_t** hits) {
   return chute;
 }
 
-void getNeighbours(element_t board[][TAM], queue_t** hits, queue_t** tail, chute_t pos) {
-  if(pos.y < TAM - 1)
-    add(hits, tail, (chute_t){ pos.x, pos.y+1 });
+void getNeighbours(element_t board[][TAM], stack_t** hits, chute_t pos) {
+  if(pos.x > 0)
+    add(hits, (chute_t){ pos.x-1, pos.y }); 
+
+  if(pos.y > 0)
+    add(hits, (chute_t){ pos.x, pos.y-1 });
   
   if(pos.x < TAM - 1)
-    add(hits, tail, (chute_t){ pos.x+1, pos.y });
-  
-  if(pos.y > 0)
-    add(hits, tail, (chute_t){ pos.x, pos.y-1 });
-  
-  if(pos.x > 0)
-    add(hits, tail, (chute_t){ pos.x-1, pos.y }); 
+    add(hits, (chute_t){ pos.x+1, pos.y });
+
+  if(pos.y < TAM - 1)
+    add(hits, (chute_t){ pos.x, pos.y+1 });    
 }
