@@ -49,7 +49,7 @@ char playerDir(void) {
       printf("\x1b[3A");
       printf("\x1b[3M");
 
-      printf("\t\x1b[31mOpção inválida\x1b[m\n");
+      printError("\tOpção inválida\n");
       usleep(500000);
       printf("\x1b[1A");
       printf("\x1b[1M");
@@ -76,7 +76,7 @@ chute_t playerPut(int xlimit, int ylimit) {
       printf("\x1b[2A");
       printf("\x1b[2M");
 
-      printf("\t\x1b[31mCoordenada inválida\x1b[m\n");
+      printError("\tCoordenada inválida\n");
       usleep(500000);
       printf("\x1b[1A");
       printf("\x1b[1M");
@@ -101,7 +101,7 @@ chute_t humanShoot(element_t player[][TAM], element_t ia[][TAM], placar p) {
 
     if(!isFormatValid(buf)) {
       clearscr();
-      printf("\n\tCoordenada inválida!\n"); 
+      printError("\n\tCoordenada inválida!\n"); 
       continue;
     }
 
@@ -110,7 +110,7 @@ chute_t humanShoot(element_t player[][TAM], element_t ia[][TAM], placar p) {
     if(!isPositionShooted(coordinates(ia, chute))) break;
     else {
       clearscr();
-      printf("\n\tCoordenada inválida\n");
+      printError("\n\tCoordenada inválida\n");
     }
   }
 

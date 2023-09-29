@@ -35,7 +35,7 @@ int isValid(element_t board[][TAM], element_t e, chute_t c) {
 
   for(i = 0; i < e.tam; i++) {
     if(!isEqual(board[c.x + *incr1][c.y + *incr2], WATER)) {
-      printf("\n\tCoordenada inválida\n"); 
+      printError("\n\tCoordenada inválida\n"); 
       return 0;
     }
   }

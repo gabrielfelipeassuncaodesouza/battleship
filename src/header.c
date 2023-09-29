@@ -25,7 +25,7 @@ void printHeader(void) {
 void printWin(void) {
   clearscr();
 
-  printf("\x1b[33m");
+  printf("\x1b[32m");
   printTypeWriter("\t\tParabéns!!!\n\n\n");
 
   printDelay("\t▄██   ▄    ▄██████▄  ███    █▄        ▄█     █▄   ▄██████▄  ███▄▄▄▄   \n", 50);

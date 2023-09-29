@@ -31,6 +31,14 @@ void printTypeWriter(const char *text) {
   }
 }
 
+void printError(const char* text) {
+  printf("\x1b[31m%s\x1b[m", text);
+}
+
+void printSucess(const char* text) {
+  printf("\x1b[32m%s\x1b[m", text);
+}
+
 void printBothBoards(element_t player[][TAM], element_t ia[][TAM], placar p) {
   printf("\n\x1b[41m\t\t\t\t\tPLACAR: %d x %d\n\x1b[m", p.player, p.ia);
 
