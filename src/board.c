@@ -71,6 +71,8 @@ void printNameOfShip(element_t ship) {
   else if(isEqual(ship, SUBMARIN)) {
     printf("\n\tPosicione seus três submarinos\n");
   }
+
+  printf("\x1b[s");
 }
 
 void putShips(element_t board[][TAM], element_t ships[SHIPS], int who) {

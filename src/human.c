@@ -46,8 +46,8 @@ char playerDir(void) {
     while(getchar() != '\n');
 
     if(toupper(dir) != 'H' && toupper(dir) != 'V' && toupper(dir) != 'R') {
-      printf("\x1b[3A");
-      printf("\x1b[3M");
+      printf("\x1b[u");
+      printf("\x1b[0J");
 
       printError("\tOpção inválida\n");
       usleep(500000);
@@ -73,8 +73,8 @@ chute_t playerPut(int xlimit, int ylimit) {
     c = strToChute(buf);
 
     if(!isFormatValid(buf) || (c.x >= xlimit || c.y >= ylimit)) {
-      printf("\x1b[2A");
-      printf("\x1b[2M");
+      printf("\x1b[u");
+      printf("\x1b[0J");
 
       printError("\tCoordenada inválida\n");
       usleep(500000);
