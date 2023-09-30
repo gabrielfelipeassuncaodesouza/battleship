@@ -23,8 +23,7 @@ chute_t iaChute(element_t board[][TAM], stack_t** hits) {
 
   do {
     if(*hits == NULL) {
-      chute.x = rand() % TAM;
-      chute.y = rand() % TAM;
+      chute = iaPut(TAM, TAM);
     }
     else {
       chute = (*hits)->hit;
