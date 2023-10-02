@@ -60,16 +60,16 @@ void initBoard(element_t board[][TAM], size_t size) {
 
 void printNameOfShip(element_t ship) {
   if(isEqual(ship, AIRCRAFT)) {
-    printf("\n\tPosicione seu porta-aviões\n");
+    printf("\n\tPosicione seu porta-aviões [AAAAA]\n");
   }
   else if(isEqual(ship, TANKER)) {
-    printf("\n\tPosicione seus dois navios-tanque\n");
+    printf("\n\tPosicione seus dois navios-tanque [TTTT]\n");
   }
   else if(isEqual(ship, DESTROYER)) {
-    printf("\n\tPosicione seus dois contratorpedeiros\n");
+    printf("\n\tPosicione seus dois contratorpedeiros [DDD]\n");
   }
   else if(isEqual(ship, SUBMARIN)) {
-    printf("\n\tPosicione seus três submarinos\n");
+    printf("\n\tPosicione seus três submarinos [SS]\n");
   }
 
   printf("\x1b[s");
